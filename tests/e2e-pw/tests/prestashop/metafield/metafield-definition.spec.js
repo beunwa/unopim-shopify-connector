@@ -3,13 +3,13 @@ test.use({ storageState: 'storage/auth.json' });
 // test.use({ launchOptions: { slowMo: 500 } }); // Slow down actions by 1 second
 // Reuse login session
 
-test.describe('Shopify Metafield definitions Page', () => {
+test.describe('PrestaShop Metafield definitions Page', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to the Shopify Credentials Page
-    await page.goto('admin/shopify/metafields');
+    // Navigate to the PrestaShop Credentials Page
+    await page.goto('admin/prestashop/metafields');
   });
 
-  test('Verify Shopify Metafield definitions page title is visible', async ({ page }) => {
+  test('Verify PrestaShop Metafield definitions page title is visible', async ({ page }) => {
     await expect(page.locator('p:text("Metafield definitions")')).toBeVisible();
   });
 
@@ -53,10 +53,10 @@ test.describe('Shopify Metafield definitions Page', () => {
   });
 });
 
-test.describe.serial('Shopify Create Metafield Definition Page', () => {
+test.describe.serial('PrestaShop Create Metafield Definition Page', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to the Shopify Credentials Page
-    await page.goto('admin/shopify/metafields');
+    // Navigate to the PrestaShop Credentials Page
+    await page.goto('admin/prestashop/metafields');
   });
 
   test('Checked Metafield Definition used for Product form and validation', async ({ page }) => {
@@ -93,7 +93,7 @@ test.describe.serial('Shopify Create Metafield Definition Page', () => {
     await expect(page.getByTitle('Edit')).toBeVisible();
     await page.getByTitle('Edit').click();
     const currentUrl = page.url();
-    await expect(currentUrl).toMatch(/\/admin\/shopify\/metafields\/edit\/\d+$/);
+    await expect(currentUrl).toMatch(/\/admin\/prestashop\/metafields\/edit\/\d+$/);
     const pLocator = page.locator('label', { hasText: 'Used For' });
     const multiselect = pLocator.locator('..').locator('.multiselect');
     const hasDisabledClass = await multiselect.evaluate(el => el.classList.contains('multiselect--disabled'));

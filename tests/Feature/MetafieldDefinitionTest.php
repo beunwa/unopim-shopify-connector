@@ -5,7 +5,7 @@ use Webkul\Prestashop\Models\PrestashopMetaFieldsConfig;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
-it('should returns the shopify Metafield Definitions index page', function () {
+it('should returns the prestashop Metafield Definitions index page', function () {
     $this->loginAsAdmin();
 
     get(route('prestashop.metafield.index'))
@@ -13,19 +13,19 @@ it('should returns the shopify Metafield Definitions index page', function () {
         ->assertSeeText(trans('shopify::app.shopify.metafield.index.title'));
 });
 
-it('should returns the shopify Metafield Definitions edit page', function () {
+it('should returns the prestashop Metafield Definitions edit page', function () {
     $this->loginAsAdmin();
 
-    $shopifyMetafield = PrestashopMetaFieldsConfig::factory()->create();
+    $prestashopMetafield = PrestashopMetaFieldsConfig::factory()->create();
 
-    get(route('prestashop.metafield.edit', ['id' => $shopifyMetafield->id]))
+    get(route('prestashop.metafield.edit', ['id' => $prestashopMetafield->id]))
         ->assertStatus(200);
 });
 
-it('should create the shopify Metafield Definitions with valid input', function () {
+it('should create the prestashop Metafield Definitions with valid input', function () {
     $this->loginAsAdmin();
 
-    $shopifyMetaField = [
+    $prestashopMetaField = [
         'ownerType'          => 'test_ownerType',
         'code'               => 'test_code',
         'type'               => 'test_type',
@@ -34,11 +34,11 @@ it('should create the shopify Metafield Definitions with valid input', function 
         'attribute'          => 'test_attribute',
     ];
 
-    post(route('prestashop.metafield.store'), $shopifyMetaField)
+    post(route('prestashop.metafield.store'), $prestashopMetaField)
         ->assertStatus(200);
 });
 
-it('should update the shopify Metafield Definitions with valid input', function () {
+it('should update the prestashop Metafield Definitions with valid input', function () {
     $this->loginAsAdmin();
     $metaField = PrestashopMetaFieldsConfig::factory()->create([
         'ownerType'          => 'test_ownerType',

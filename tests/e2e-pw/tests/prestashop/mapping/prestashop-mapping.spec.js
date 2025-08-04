@@ -23,18 +23,18 @@ const mappingElements = [
     { field: 'Cost per item [cost]', inputName: 'cost', placeholder: 'Cost per item' }
 ];
 
-test.describe('UnoPim Shopify mapping tab Navigation', () => {
+test.describe('UnoPim PrestaShop mapping tab Navigation', () => {
     test.beforeEach(async ({ page }) => {
-        // Navigate to the Shopify Credentials Page
-        await page.goto('admin/shopify/credentials');
+        // Navigate to the PrestaShop Credentials Page
+        await page.goto('admin/prestashop/credentials');
         await page.getByRole('link', { name: 'Export Mappings' }).click();
-        await expect(page.url()).toMatch(/\/admin\/shopify\/export\/mapping\/[0-9]+$/);
+        await expect(page.url()).toMatch(/\/admin\/prestashop\/export\/mapping\/[0-9]+$/);
     });
 
     // Playwright test to map fields
 
 
-    test('Map Shopify Fields', async ({ page }) => {
+    test('Map PrestaShop Fields', async ({ page }) => {
 
         for (const element of mappingElements) {
             console.log(`Mapping ${element.field}`);
@@ -59,7 +59,7 @@ test.describe('UnoPim Shopify mapping tab Navigation', () => {
 
     });
 
-    test('should navigate to Shopify mapping page and fill export mapping form', async ({ page }) => {
+    test('should navigate to PrestaShop mapping page and fill export mapping form', async ({ page }) => {
         await expect(page.getByRole('link', { name: 'General' })).toBeVisible();
         await expect(page.locator('#app')).toContainText('General');
         await expect(page.getByRole('paragraph').filter({ hasText: 'Export Mappings' })).toBeVisible();
@@ -76,7 +76,7 @@ test.describe('UnoPim Shopify mapping tab Navigation', () => {
         await page.locator('#default_productType').fill('unopim');
         await page.locator('#default_productType').click();
         await page.locator('#default_tags').click();
-        await page.locator('#default_tags').fill('shopify');
+        await page.locator('#default_tags').fill('prestashop');
         const mediaTypeDropdown = page.locator('#mediaType .multiselect__select');
         await mediaTypeDropdown.click();
         await page.getByText('Gallery', { exact: true }).click();

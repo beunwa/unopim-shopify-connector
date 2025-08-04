@@ -4,12 +4,12 @@ use Webkul\DataTransfer\Models\JobInstances;
 
 use function Pest\Laravel\postJson;
 
-it('should create the shopify category export job', function () {
+it('should create the prestashop category export job', function () {
     $this->loginAsAdmin();
 
     $exportJob = [
         'code'            => fake()->unique()->word,
-        'entity_type'     => 'shopifyCategories',
+        'entity_type'     => 'prestashopCategories',
         'field_separator' => ',',
         'filters'         => [
             'file_format' => 'Csv',
@@ -23,16 +23,16 @@ it('should create the shopify category export job', function () {
 
     $this->assertDatabaseHas($this->getFullTableName(JobInstances::class), [
         'code'        => $exportJob['code'],
-        'entity_type' => 'shopifyCategories',
+        'entity_type' => 'prestashopCategories',
     ]);
 });
 
-it('should create the shopify product export job', function () {
+it('should create the prestashop product export job', function () {
     $this->loginAsAdmin();
 
     $exportJob = [
         'code'            => fake()->unique()->word,
-        'entity_type'     => 'shopifyProduct',
+        'entity_type'     => 'prestashopProduct',
         'field_separator' => ',',
         'filters'         => [
             'file_format' => 'Csv',
@@ -46,6 +46,6 @@ it('should create the shopify product export job', function () {
 
     $this->assertDatabaseHas($this->getFullTableName(JobInstances::class), [
         'code'        => $exportJob['code'],
-        'entity_type' => 'shopifyProduct',
+        'entity_type' => 'prestashopProduct',
     ]);
 });

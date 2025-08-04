@@ -5,7 +5,7 @@ use Webkul\Attribute\Models\Attribute;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
-it('should show the shopify settings page', function () {
+it('should show the prestashop settings page', function () {
     $this->loginAsAdmin();
 
     get(route('admin.prestashop.settings', 2))
@@ -27,7 +27,7 @@ it('should update the export setting mapping', function () {
         ->assertSessionHas(['success']);
 });
 
-it('should show the shopify export-mappings page', function () {
+it('should show the prestashop export-mappings page', function () {
     $this->loginAsAdmin();
 
     get(route('admin.prestashop.export-mappings', 1))

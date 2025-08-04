@@ -3,14 +3,14 @@ test.use({ storageState: 'storage/auth.json' });
 // test.use({ launchOptions: { slowMo: 500 } }); // Slow down actions by 1 second
 // Reuse login session
 
-test.describe('Shopify Credentials Page', () => {
+test.describe('PrestaShop Credentials Page', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to the Shopify Credentials Page
-    await page.goto('admin/shopify/credentials');
+    // Navigate to the PrestaShop Credentials Page
+    await page.goto('admin/prestashop/credentials');
   });
 
-  test('Verify Shopify Credentials page title is visible', async ({ page }) => {
-    await expect(page.locator('p:text("Shopify Credentials")')).toBeVisible();
+  test('Verify PrestaShop Credentials page title is visible', async ({ page }) => {
+    await expect(page.locator('p:text("PrestaShop Credentials")')).toBeVisible();
   });
 
   test('Click on Create Credential button', async ({ page }) => {
@@ -42,7 +42,7 @@ test.describe('Shopify Credentials Page', () => {
   });
 
   test('Verify table headers', async ({ page }) => {
-    const headers = ['Shopify URL', 'API Version', 'Enable', 'Actions'];
+    const headers = ['PrestaShop URL', 'API Version', 'Enable', 'Actions'];
     for (const header of headers) {
       await expect(page.getByText(header)).toBeVisible({ timeout: 10000 });
     }
@@ -53,40 +53,40 @@ test.describe('Shopify Credentials Page', () => {
   });
 });
 
-test.describe.serial('Shopify Create credential Page', () => {
+test.describe.serial('PrestaShop Create credential Page', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to the Shopify Credentials Page
-    await page.goto('admin/shopify/credentials');
+    // Navigate to the PrestaShop Credentials Page
+    await page.goto('admin/prestashop/credentials');
   });
 
   test('Checked credential form and validation', async ({ page }) => {
     await page.getByRole('button', { name: 'Create Credential' }).click();
     await page.getByRole('button', { name: 'Save' }).click();
-    await expect(page.getByText('The Shopify URL field is')).toBeVisible();
-    await expect(page.locator('#app')).toContainText('The Shopify URL field is required');
+    await expect(page.getByText('The PrestaShop URL field is')).toBeVisible();
+    await expect(page.locator('#app')).toContainText('The PrestaShop URL field is required');
     await expect(page.getByText('The Admin API access token')).toBeVisible();
     await expect(page.locator('#app')).toContainText('The Admin API access token field is required');
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).click();
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).fill('tesst');
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).click();
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).fill('tesst');
     await page.getByRole('button', { name: 'Save' }).click();
     await expect(page.getByText('The Admin API access token')).toBeVisible();
     await expect(page.locator('#app')).toContainText('The Admin API access token field is required');
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).click();
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).fill('');
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).click();
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).fill('');
     await page.getByRole('textbox', { name: 'Admin API access token' }).click();
     await page.getByRole('textbox', { name: 'Admin API access token' }).fill('fdssdfsdf');
     await page.getByRole('button', { name: 'Save' }).click();
-    await expect(page.getByText('The Shopify URL field is')).toBeVisible();
-    await expect(page.locator('#app')).toContainText('The Shopify URL field is required');
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).click();
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).fill('sfasdfasdfas');
+    await expect(page.getByText('The PrestaShop URL field is')).toBeVisible();
+    await expect(page.locator('#app')).toContainText('The PrestaShop URL field is required');
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).click();
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).fill('sfasdfasdfas');
     await page.getByRole('textbox', { name: 'Admin API access token' }).click();
     await page.getByRole('textbox', { name: 'Admin API access token' }).fill('fdssdfsdffasdfasdfasdf');
     await page.getByRole('button', { name: 'Save' }).click();
     await expect(page.getByText('Invalid URL')).toBeVisible();
     await expect(page.locator('#app')).toContainText('Invalid URL');
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).click();
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).fill('http://shopify.demo,com');
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).click();
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).fill('http://prestashop.demo,com');
     await page.getByRole('button', { name: 'Save' }).click();
     await expect(page.getByText('Invalid Credential').first()).toBeVisible();
     await expect(page.locator('#app')).toContainText('Invalid Credential');
@@ -99,7 +99,7 @@ test.describe.serial('Shopify Create credential Page', () => {
 
   test('Credential creation with the valid data', async ({ page }) => {
     await page.getByRole('button', { name: 'Create Credential' }).click();
-    await page.getByRole('textbox', { name: 'http://demo.myshopify.com' }).fill('http://quickstart-c2b9e6cf.myshopify.com');
+    await page.getByRole('textbox', { name: 'http://demo.prestashop.com' }).fill('http://demo.prestashop.com');
     await page.getByRole('textbox', { name: 'Admin API access token' }).fill('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');
     await page.getByRole('button', { name: 'Save' }).click();
     await expect(page.getByRole('banner')).toBeVisible();
@@ -114,7 +114,7 @@ test.describe.serial('Shopify Create credential Page', () => {
     await expect(page.getByTitle('Edit')).toBeVisible();
     await page.getByTitle('Edit').click();
     const currentUrl = page.url();
-    await expect(currentUrl).toMatch(/\/admin\/shopify\/credentials\/edit\/\d+$/);
+    await expect(currentUrl).toMatch(/\/admin\/prestashop\/credentials\/edit\/\d+$/);
     await page.getByText('Save').click();
     await page.waitForSelector('text=The Location List field is required', { state: 'visible' });
     // Now assert visibility
@@ -133,7 +133,7 @@ test.describe.serial('Shopify Create credential Page', () => {
   });
 
   test('Delete the credential', async ({ page }) => {
-    await expect(page.locator('#app')).toContainText('http://quickstart-c2b9e6cf.myshopify.com');
+    await expect(page.locator('#app')).toContainText('http://demo.prestashop.com');
     await expect(page.getByTitle('Delete')).toBeVisible();
     await page.getByTitle('Delete').click();
     await expect(page.getByText('Are you sure you want to')).toBeVisible();
