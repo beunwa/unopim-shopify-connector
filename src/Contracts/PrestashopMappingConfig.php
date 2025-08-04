@@ -2,4 +2,4 @@
 
 namespace Webkul\Prestashop\Contracts;
 
-interface ShopifyMappingConfig {}
+interface PrestashopMappingConfig {}

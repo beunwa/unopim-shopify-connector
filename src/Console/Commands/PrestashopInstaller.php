@@ -21,7 +21,7 @@ class PrestashopInstaller extends Command
 
         if ($this->confirm('Would you like to run the migrations now?', true)) {
             $this->call('migrate');
-            $this->call('db:seed', ['--class' => 'Webkul\Prestashop\Database\Seeders\ShopifySettingConfigurationValuesSeeder']);
+            $this->call('db:seed', ['--class' => 'Webkul\Prestashop\Database\Seeders\PrestashopSettingConfigurationValuesSeeder']);
         }
 
         $this->call('vendor:publish', [

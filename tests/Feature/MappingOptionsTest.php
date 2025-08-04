@@ -3,14 +3,14 @@
 use Webkul\Attribute\Models\Attribute;
 use Webkul\Core\Models\Channel;
 use Webkul\Core\Models\Currency;
-use Webkul\Prestashop\Models\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Models\PrestashopCredentialsConfig;
 
 use function Pest\Laravel\get;
 
 it('should return the list of attributes', function () {
     $this->loginAsAdmin();
 
-    $response = get(route('admin.shopify.get-attribute'))
+    $response = get(route('admin.prestashop.get-attribute'))
         ->assertOk()
         ->assertJsonStructure([
             'options' => [
@@ -39,7 +39,7 @@ it('should return the selected attribute', function () {
             'values'     => [$attribute->code],
         ],
     ]);
-    $response = get(route('admin.shopify.get-attribute').'?'.$queryParams)
+    $response = get(route('admin.prestashop.get-attribute').'?'.$queryParams)
         ->assertOk()
         ->assertJsonStructure([
             'options' => [
@@ -64,7 +64,7 @@ it('should return a list of image attributes', function () {
 
     $imageAttribute = Attribute::factory()->create(['code' => 'image_attr_tst', 'type' => 'image']);
 
-    $response = get(route('admin.shopify.get-image-attribute'));
+    $response = get(route('admin.prestashop.get-image-attribute'));
 
     $response->assertOk()
         ->assertJsonStructure([
@@ -93,11 +93,11 @@ it('should return a list of image attributes', function () {
 it('should return the list of active Shopify credentials', function () {
     $this->loginAsAdmin();
 
-    $activeCredential1 = ShopifyCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop1.myshopify.com']);
-    $activeCredential2 = ShopifyCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop2.myshopify.com']);
-    $inactiveCredential = ShopifyCredentialsConfig::factory()->create(['active' => 0, 'shopUrl' => 'shop3.myshopify.com']);
+    $activeCredential1 = PrestashopCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop1.myshopify.com']);
+    $activeCredential2 = PrestashopCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop2.myshopify.com']);
+    $inactiveCredential = PrestashopCredentialsConfig::factory()->create(['active' => 0, 'shopUrl' => 'shop3.myshopify.com']);
 
-    $response = get(route('shopify.credential.fetch-all'));
+    $response = get(route('prestashop.credential.fetch-all'));
 
     $response->assertStatus(200);
 
@@ -114,12 +114,12 @@ it('should return the list of active Shopify credentials', function () {
 it('should return an empty list when no active Shopify credentials exist', function () {
     $this->loginAsAdmin();
 
-    $existingCredentials = ShopifyCredentialsConfig::where('active', 1)->get();
+    $existingCredentials = PrestashopCredentialsConfig::where('active', 1)->get();
     foreach ($existingCredentials as $credential) {
         $credential->update(['active' => 0]);
     }
 
-    $response = get(route('shopify.credential.fetch-all'));
+    $response = get(route('prestashop.credential.fetch-all'));
 
     $response->assertStatus(200);
 
@@ -133,7 +133,7 @@ it('should return the list of channels', function () {
 
     $channel = Channel::factory()->create();
 
-    $response = get(route('shopify.channel.fetch-all'));
+    $response = get(route('prestashop.channel.fetch-all'));
 
     $response->assertStatus(200);
 
@@ -155,7 +155,7 @@ it('should return the selected channel', function () {
         'identifiers[values][0]'  => $channel->code,
     ]);
 
-    $response = get(route('shopify.channel.fetch-all').'?'.$queryParams);
+    $response = get(route('prestashop.channel.fetch-all').'?'.$queryParams);
 
     $response->assertStatus(200);
 
@@ -173,7 +173,7 @@ it('should return the list of currencies', function () {
         'symbol' => '$',
     ]);
 
-    $response = get(route('shopify.currency.fetch-all'));
+    $response = get(route('prestashop.currency.fetch-all'));
 
     $response->assertStatus(200);
 });
@@ -190,7 +190,7 @@ it('should return the selected currency', function () {
         'identifiers[values][0]'  => 'INR',
     ]);
 
-    $response = get(route('shopify.currency.fetch-all').'?'.$queryParams);
+    $response = get(route('prestashop.currency.fetch-all').'?'.$queryParams);
 
     $response->assertStatus(200);
 

@@ -9,7 +9,7 @@ use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Prestashop\DataGrids\Catalog\MetaFieldDataGrid;
 use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
 use Webkul\Prestashop\Http\Requests\MetaFieldForm;
-use Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository;
+use Webkul\Prestashop\Repositories\PrestashopMetaFieldRepository;
 
 class MetaFieldController extends Controller
 {
@@ -52,7 +52,7 @@ class MetaFieldController extends Controller
      * @return void
      */
     public function __construct(
-        protected ShopifyMetaFieldRepository $shopifyMetaFieldRepository,
+        protected PrestashopMetaFieldRepository $prestashopMetaFieldRepository,
         protected AttributeRepository $attributeRepository,
     ) {}
 
@@ -82,19 +82,19 @@ class MetaFieldController extends Controller
         $data = $request->all();
         $errors = [];
         if ((bool) $data['pin']) {
-            $allPined = $this->shopifyMetaFieldRepository->where('pin', 1)->where('ownerType', $data['ownerType'])->get()->toArray();
+            $allPined = $this->prestashopMetaFieldRepository->where('pin', 1)->where('ownerType', $data['ownerType'])->get()->toArray();
             if (count($allPined) > 19) {
                 $errors['pin'] = [trans('Pin limit reached, You can only have 20 pined fields')];
             }
         }
 
-        $attributeCode = $this->shopifyMetaFieldRepository->where('code', $data['code'])->where('ownerType', $data['ownerType'])->get()->first();
+        $attributeCode = $this->prestashopMetaFieldRepository->where('code', $data['code'])->where('ownerType', $data['ownerType'])->get()->first();
         if ($attributeCode) {
             $defintionType = ($attributeCode?->ownerType == 'PRODUCT') ? 'Product Defintion' : 'Product variant Definition';
             $errors['code'] = [trans('Definition already created in '.$defintionType)];
         }
         if (isset($data['name_space_key'])) {
-            $nameSpaceAndKeyExist = $this->shopifyMetaFieldRepository->where('name_space_key', $data['name_space_key'])
+            $nameSpaceAndKeyExist = $this->prestashopMetaFieldRepository->where('name_space_key', $data['name_space_key'])
                 ->where('ownerType', $data['ownerType'])->get()->first();
             if ($nameSpaceAndKeyExist) {
                 $defintionType = ($nameSpaceAndKeyExist?->ownerType == 'PRODUCT') ? 'Product Defintion' : 'Product variant Definition';
@@ -156,7 +156,7 @@ class MetaFieldController extends Controller
         }
 
         try {
-            $metaFieldCreate = $this->shopifyMetaFieldRepository->create($data);
+            $metaFieldCreate = $this->prestashopMetaFieldRepository->create($data);
 
             session()->flash('success', trans('shopify::app.shopify.metafield.created'));
         } catch (\Exception $e) {
@@ -264,7 +264,7 @@ class MetaFieldController extends Controller
      */
     public function edit(int $id)
     {
-        $metaField = $this->shopifyMetaFieldRepository->find($id);
+        $metaField = $this->prestashopMetaFieldRepository->find($id);
 
         if (! $metaField) {
             abort(404);
@@ -287,7 +287,7 @@ class MetaFieldController extends Controller
         $requestData = request()->except(['_token', '_method', 'listvalue']);
         $errors = [];
         if ((bool) $requestData['pin']) {
-            $allPined = $this->shopifyMetaFieldRepository->where('pin', 1)->where('ownerType', $requestData['ownerType'])->get()->toArray();
+            $allPined = $this->prestashopMetaFieldRepository->where('pin', 1)->where('ownerType', $requestData['ownerType'])->get()->toArray();
             $attrCode = array_column($allPined, 'code');
             $countPin = count($allPined);
             if (in_array($requestData['code'], $attrCode)) {
@@ -344,7 +344,7 @@ class MetaFieldController extends Controller
             $errors['attribute'] = trans('Name is too long (maximum is 255 characters)');
         }
 
-        $credential = $this->shopifyMetaFieldRepository->find($id);
+        $credential = $this->prestashopMetaFieldRepository->find($id);
         if (! $credential) {
             abort(404);
         }
@@ -355,7 +355,7 @@ class MetaFieldController extends Controller
                 ->withInput();
         }
         // Proceed to update after validation passes.
-        $this->shopifyMetaFieldRepository->update($requestData, $id);
+        $this->prestashopMetaFieldRepository->update($requestData, $id);
         session()->flash('success', trans('shopify::app.shopify.metafield.update-success'));
 
         return redirect()->route('prestashop.metafield.edit', $id);
@@ -366,7 +366,7 @@ class MetaFieldController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $this->shopifyMetaFieldRepository->delete($id);
+        $this->prestashopMetaFieldRepository->delete($id);
 
         return new JsonResponse([
             'message' => trans('shopify::app.shopify.metafield.delete-success'),
@@ -387,7 +387,7 @@ class MetaFieldController extends Controller
         }
 
         try {
-            $deletedMetaField = $this->shopifyMetaFieldRepository->whereIN('id', $metaFieldsId)->delete();
+            $deletedMetaField = $this->prestashopMetaFieldRepository->whereIN('id', $metaFieldsId)->delete();
             if ($deletedMetaField) {
                 $message = trans('shopify::app.shopify.metafield.mass-delete-success');
             }

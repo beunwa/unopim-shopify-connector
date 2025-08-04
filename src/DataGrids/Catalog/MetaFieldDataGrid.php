@@ -14,7 +14,7 @@ class MetaFieldDataGrid extends DataGrid
      */
     public function prepareQueryBuilder()
     {
-        $queryBuilder = DB::table('wk_shopify_metafield_defination')
+        $queryBuilder = DB::table('wk_prestashop_metafield_defination')
             ->select(
                 'id',
                 'ownerType',

@@ -8,7 +8,7 @@ use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Prestashop\DataGrids\Catalog\CredentialDataGrid;
 use Webkul\Prestashop\Helpers\ShoifyApiVersion;
 use Webkul\Prestashop\Http\Requests\CredentialForm;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 
 class CredentialController extends Controller
@@ -20,7 +20,7 @@ class CredentialController extends Controller
      *
      * @return void
      */
-    public function __construct(protected ShopifyCredentialRepository $shopifyRepository) {}
+    public function __construct(protected PrestashopCredentialRepository $prestashopRepository) {}
 
     /**
      * Display a listing of the resource.
@@ -55,7 +55,7 @@ class CredentialController extends Controller
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $credential = $this->shopifyRepository->findWhere(['shopUrl' => $url])->first();
+        $credential = $this->prestashopRepository->findWhere(['shopUrl' => $url])->first();
 
         if ($credential) {
             return new JsonResponse([
@@ -73,13 +73,13 @@ class CredentialController extends Controller
             return new JsonResponse([
                 'errors' => [
                     'shopUrl'     => [trans('shopify::app.shopify.credential.invalid')],
-                    'accessToken' => [trans('shopify::app.shopify.credential.invalid')],
+                    'apiKey' => [trans('shopify::app.shopify.credential.invalid')],
                 ],
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try {
-            $credentialCreate = $this->shopifyRepository->create($data);
+            $credentialCreate = $this->prestashopRepository->create($data);
 
             session()->flash('success', trans('shopify::app.shopify.credential.created'));
         } catch (\Exception $e) {
@@ -100,7 +100,7 @@ class CredentialController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $this->shopifyRepository->delete($id);
+        $this->prestashopRepository->delete($id);
 
         return new JsonResponse([
             'message' => trans('shopify::app.shopify.credential.delete-success'),
@@ -114,7 +114,7 @@ class CredentialController extends Controller
      */
     public function edit(int $id)
     {
-        $credential = $this->shopifyRepository->find($id);
+        $credential = $this->prestashopRepository->find($id);
 
         if (! $credential) {
             abort(404);
@@ -136,7 +136,7 @@ class CredentialController extends Controller
 
         $apiVersion = (new ShoifyApiVersion)->getApiVersion();
 
-        $credential->accessToken = str_repeat('*', strlen($credential->accessToken));
+        $credential->apiKey = str_repeat('*', strlen($credential->apiKey));
 
         return view('prestashop::credential.edit', compact('credential', 'shopLocales', 'publishingChannel', 'locationAll', 'apiVersion'));
     }
@@ -149,21 +149,21 @@ class CredentialController extends Controller
     public function update(int $id)
     {
         $requestData = request()->except(['code']);
-        $credential = $this->shopifyRepository->find($id);
+        $credential = $this->prestashopRepository->find($id);
 
         if (! $credential) {
             abort(404);
         }
 
-        $token = str_repeat('*', strlen($credential->accessToken));
+        $token = str_repeat('*', strlen($credential->apiKey));
 
-        if (str_contains($requestData['accessToken'], $token)) {
-            $requestData['accessToken'] = $credential->accessToken;
+        if (str_contains($requestData['apiKey'], $token)) {
+            $requestData['apiKey'] = $credential->apiKey;
         }
 
         $params = $this->validate(request(), [
             'shopUrl'     => 'required|url',
-            'accessToken' => 'required',
+            'apiKey' => 'required',
         ]);
 
         $response = $this->requestPrestashopApiAction('products', $requestData);
@@ -172,7 +172,7 @@ class CredentialController extends Controller
             return redirect()->route('prestashop.credentials.edit', $id)
                 ->withErrors([
                     'shopUrl'     => trans('shopify::app.shopify.credential.invalid'),
-                    'accessToken' => trans('shopify::app.shopify.credential.invalid'),
+                    'apiKey' => trans('shopify::app.shopify.credential.invalid'),
                 ])
                 ->withInput();
         }
@@ -206,7 +206,7 @@ class CredentialController extends Controller
         unset($requestData['salesChannel']);
         unset($requestData['locations']);
 
-        $this->shopifyRepository->update($requestData, $id);
+        $this->prestashopRepository->update($requestData, $id);
 
         session()->flash('success', trans('shopify::app.shopify.credential.update-success'));
 

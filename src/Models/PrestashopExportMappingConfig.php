@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Webkul\HistoryControl\Contracts\HistoryAuditable as HistoryContract;
 use Webkul\HistoryControl\Interfaces\PresentableHistoryInterface;
 use Webkul\HistoryControl\Traits\HistoryTrait;
-use Webkul\Prestashop\Contracts\ShopifyExportMappingConfig as ShopifyExportMappingConfigContract;
+use Webkul\Prestashop\Contracts\PrestashopExportMappingConfig as PrestashopExportMappingConfigContract;
 use Webkul\Prestashop\Presenters\JsonDataPresenter;
 
-class ShopifyExportMappingConfig extends Model implements HistoryContract, PresentableHistoryInterface, ShopifyExportMappingConfigContract
+class PrestashopExportMappingConfig extends Model implements HistoryContract, PresentableHistoryInterface, PrestashopExportMappingConfigContract
 {
     use HistoryTrait;
 
-    protected $table = 'shopify_setting_configuration_values';
+    protected $table = 'prestashop_setting_configuration_values';
 
-    protected $historyTags = ['shopify_exportmapping'];
+    protected $historyTags = ['prestashop_exportmapping'];
 
     protected $fillable = [
         'name',

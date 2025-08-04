@@ -5,14 +5,14 @@ namespace Webkul\Prestashop\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ShopifySettingConfigurationValuesSeeder extends Seeder
+class PrestashopSettingConfigurationValuesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $existingIds = DB::table('shopify_setting_configuration_values')
+        $existingIds = DB::table('prestashop_setting_configuration_values')
             ->whereIn('id', [1, 2, 3])
             ->pluck('id')
             ->toArray();
@@ -44,7 +44,7 @@ class ShopifySettingConfigurationValuesSeeder extends Seeder
         });
 
         if (! empty($newRecords)) {
-            DB::table('shopify_setting_configuration_values')->insert($newRecords);
+            DB::table('prestashop_setting_configuration_values')->insert($newRecords);
         }
     }
 }

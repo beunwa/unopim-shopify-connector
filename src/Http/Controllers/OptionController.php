@@ -10,8 +10,8 @@ use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Core\Repositories\ChannelRepository;
 use Webkul\Core\Repositories\CurrencyRepository;
 use Webkul\Core\Repositories\LocaleRepository;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 
 class OptionController extends Controller
 {
@@ -21,42 +21,42 @@ class OptionController extends Controller
      * @return void
      */
     public function __construct(
-        protected ShopifyCredentialRepository $shopifyRepository,
+        protected PrestashopCredentialRepository $prestashopRepository,
         protected AttributeRepository $attributeRepository,
         protected ChannelRepository $channelRepository,
         protected CurrencyRepository $currencyRepository,
         protected LocaleRepository $localeRepository,
         protected AttributeGroupRepository $attributeGroupRepository,
         protected AttributeFamilyRepository $attributeFamilyRepository,
-        protected ShopifyExportMappingRepository $shopifyExportMappingRepository,
+        protected PrestashopExportMappingRepository $prestashopExportMappingRepository,
     ) {}
 
     /**
      * Return All credentials
      */
-    public function listShopifyCredential(): JsonResponse
+    public function listPrestashopCredential(): JsonResponse
     {
         $queryParams = request()->except(['page', 'query', 'entityName', 'attributeId']);
         $query = request()->get('query') ?? null;
-        $shopifyRepo = $this->shopifyRepository;
+        $shopifyRepo = $this->prestashopRepository;
         if ($query) {
             $shopifyRepo = $shopifyRepo->where('shopUrl', 'LIKE', '%'.$query.'%');
         }
 
         $searchIdentifiers = isset($queryParams['identifiers']['columnName']) ? $queryParams['identifiers'] : [];
 
-        $shopifyRepository = $shopifyRepo->where('active', 1);
+        $prestashopRepository = $shopifyRepo->where('active', 1);
 
         if (! empty($searchIdentifiers)) {
             $values = $searchIdentifiers['values'] ?? [];
 
-            $shopifyRepository = $shopifyRepository->whereIn(
+            $prestashopRepository = $prestashopRepository->whereIn(
                 'id',
                 is_array($values) ? $values : [$values]
             );
         }
 
-        $allActivateCredntial = $shopifyRepository->get()->toArray();
+        $allActivateCredntial = $prestashopRepository->get()->toArray();
         $allCredential = [];
 
         foreach ($allActivateCredntial as $credentialArray) {
@@ -344,7 +344,7 @@ class OptionController extends Controller
         $queryParams = request()->except(['page', 'query', 'attributeId']);
 
         $query = request()->get('query') ?? '';
-        $credentialData = $this->shopifyRepository->find($queryParams[0]);
+        $credentialData = $this->prestashopRepository->find($queryParams[0]);
         $metaFieldAttr = array_merge($credentialData?->extras['productMetafield'] ?? [], $credentialData?->extras['productVariantMetafield'] ?? []);
 
         $searchIdentifiers = isset($queryParams['identifiers']['columnName']) ? $queryParams['identifiers'] : [];
@@ -393,7 +393,7 @@ class OptionController extends Controller
     public function selectedMetafieldAttributes(): JsonResponse
     {
         $id = request()->get('id');
-        $shopifyMapping = $this->shopifyExportMappingRepository->find(3);
+        $shopifyMapping = $this->prestashopExportMappingRepository->find(3);
         $formattedoptions = [];
 
         $metaFieldMappings = $shopifyMapping->mapping['meta_fields'];

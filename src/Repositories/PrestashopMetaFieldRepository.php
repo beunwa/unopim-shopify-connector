@@ -3,15 +3,15 @@
 namespace Webkul\Prestashop\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Prestashop\Contracts\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Contracts\PrestashopMetaFieldsConfig;
 
-class ShopifyCredentialRepository extends Repository
+class PrestashopMetaFieldRepository extends Repository
 {
     /**
      * Specify model class name.
      */
     public function model(): string
     {
-        return ShopifyCredentialsConfig::class;
+        return PrestashopMetaFieldsConfig::class;
     }
 }

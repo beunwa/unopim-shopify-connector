@@ -68,7 +68,7 @@ return [
                 'create'                => 'Anmeldeinformationen erstellen',
                 'url'                   => 'Shopify-URL',
                 'shopifyurlplaceholder' => 'Shopify-URL (z.B. http://demo.myshopify.com)',
-                'accesstoken'           => 'Admin-API-Zugriffstoken',
+                'apiKey'           => 'Admin-API-Zugriffstoken',
                 'apiVersion'            => 'API-Version',
                 'save'                  => 'Speichern',
                 'back-btn'              => 'Zurück',

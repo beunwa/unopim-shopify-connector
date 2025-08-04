@@ -18,10 +18,10 @@ use Webkul\DataTransfer\Jobs\Export\File\FlatItemBuffer as FileExportFileBuffer;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Exceptions\InvalidCredential;
 use Webkul\Prestashop\Exceptions\InvalidLocale;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
-use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
-use Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopMetaFieldRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\TranslationTrait;
@@ -131,13 +131,13 @@ class Exporter extends AbstractExporter
         protected FileExportFileBuffer $exportFileBuffer,
         protected ChannelRepository $channelRepository,
         protected AttributeRepository $attributeRepository,
-        protected ShopifyCredentialRepository $shopifyRepository,
-        protected ShopifyMappingRepository $shopifyMappingRepository,
-        protected ShopifyExportMappingRepository $shopifyExportmapping,
+        protected PrestashopCredentialRepository $prestashopRepository,
+        protected PrestashopMappingRepository $prestashopMappingRepository,
+        protected PrestashopExportMappingRepository $prestashopExportmapping,
         protected AttributeGroupRepository $attributeGroupRepository,
         protected AttributeFamilyGroupMappingRepository $attributeFamilyGroupMappingRepository,
         protected ShopifyGraphQLDataFormatter $shopifyGraphQLDataFormatter,
-        protected ShopifyMetaFieldRepository $shopifyMetaFieldRepository,
+        protected PrestashopMetaFieldRepository $prestashopMetaFieldRepository,
         protected ?AssetRepository $assetRepository = null,
     ) {
         parent::__construct($exportBatchRepository, $exportFileBuffer);
@@ -171,13 +171,13 @@ class Exporter extends AbstractExporter
 
         $this->jobChannel = $filters['channel'];
 
-        $this->credential = $this->shopifyRepository->find($filters['credentials']);
+        $this->credential = $this->prestashopRepository->find($filters['credentials']);
         $this->definitionMapping = $this->credential?->extras;
 
-        $mappings = $this->shopifyExportmapping->findMany([1, 2]);
+        $mappings = $this->prestashopExportmapping->findMany([1, 2]);
         $this->exportMapping = $mappings->first();
-        $this->productMetaFieldMapping = $this->shopifyMetaFieldRepository->where('ownerType', 'PRODUCT')->get()->toArray();
-        $this->variantMetaFieldMapping = $this->shopifyMetaFieldRepository->where('ownerType', 'PRODUCTVARIANT')->get()->toArray();
+        $this->productMetaFieldMapping = $this->prestashopMetaFieldRepository->where('ownerType', 'PRODUCT')->get()->toArray();
+        $this->variantMetaFieldMapping = $this->prestashopMetaFieldRepository->where('ownerType', 'PRODUCTVARIANT')->get()->toArray();
 
         $this->settingMapping = $mappings->last();
 
@@ -194,7 +194,7 @@ class Exporter extends AbstractExporter
 
         $this->credentialAsArray = [
             'shopUrl'     => $this->credential?->shopUrl,
-            'accessToken' => $this->credential?->accessToken,
+            'apiKey' => $this->credential?->apiKey,
             'apiVersion'  => $this->credential?->apiVersion,
         ];
     }

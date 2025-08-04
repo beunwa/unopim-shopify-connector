@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Webkul\Prestashop\Models\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Models\PrestashopCredentialsConfig;
 
 use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
@@ -11,7 +11,7 @@ use function Pest\Laravel\put;
 it('should returns the shopify credential index page', function () {
     $this->loginAsAdmin();
 
-    get(route('shopify.credentials.index'))
+    get(route('prestashop.credentials.index'))
         ->assertStatus(200)
         ->assertSeeText(trans('shopify::app.shopify.credential.index.title'));
 });
@@ -19,9 +19,9 @@ it('should returns the shopify credential index page', function () {
 it('should returns the shopify credential edit page', function () {
     $this->loginAsAdmin();
 
-    $shopifyCredential = ShopifyCredentialsConfig::factory()->create();
+    $shopifyCredential = PrestashopCredentialsConfig::factory()->create();
 
-    get(route('shopify.credentials.edit', ['id' => $shopifyCredential->id]))
+    get(route('prestashop.credentials.edit', ['id' => $shopifyCredential->id]))
         ->assertStatus(200);
 });
 
@@ -33,12 +33,12 @@ it('should create the shopify credential with valid input', function () {
     ]);
 
     $shopifyCredential = [
-        'accessToken' => 'test_access_token',
+        'apiKey' => 'test_access_token',
         'apiVersion'  => '2023-04',
         'shopUrl'     => 'https://test.myshopify.com',
     ];
 
-    post(route('shopify.credentials.store'), $shopifyCredential)
+    post(route('prestashop.credentials.store'), $shopifyCredential)
         ->assertStatus(200);
 });
 
@@ -46,12 +46,12 @@ it('should return error for invalid URL during credential create', function () {
     $this->loginAsAdmin();
 
     $shopifyCredential = [
-        'accessToken' => 'test_access_token',
+        'apiKey' => 'test_access_token',
         'apiVersion'  => '2023-04',
         'shopUrl'     => 'test.myshopify.com',
     ];
 
-    $response = post(route('shopify.credentials.store'), $shopifyCredential)
+    $response = post(route('prestashop.credentials.store'), $shopifyCredential)
         ->assertStatus(422);
 
     $this->assertArrayHasKey('errors', $response->json());
@@ -66,24 +66,24 @@ it('should return error for invalid credentials ', function () {
     ]);
 
     $shopifyCredential = [
-        'accessToken' => 'test_access_token',
+        'apiKey' => 'test_access_token',
         'apiVersion'  => '2023-04',
         'shopUrl'     => 'https://test.myshopify.com',
     ];
 
-    $response = post(route('shopify.credentials.store'), $shopifyCredential)
+    $response = post(route('prestashop.credentials.store'), $shopifyCredential)
         ->assertStatus(422);
 
     $this->assertArrayHasKey('errors', $response->json());
     $this->assertEquals(trans('shopify::app.shopify.credential.invalid'), $response->json('errors.shopUrl.0'));
-    $this->assertEquals(trans('shopify::app.shopify.credential.invalid'), $response->json('errors.accessToken.0'));
+    $this->assertEquals(trans('shopify::app.shopify.credential.invalid'), $response->json('errors.apiKey.0'));
 });
 
 it('should update the shopify credential successfully', function () {
     $this->loginAsAdmin();
 
-    $credential = ShopifyCredentialsConfig::factory()->create([
-        'accessToken' => 'valid_access_token',
+    $credential = PrestashopCredentialsConfig::factory()->create([
+        'apiKey' => 'valid_access_token',
         'shopUrl'     => 'https://test.myshopify.com',
         'apiVersion'  => '2023-04',
     ]);
@@ -94,19 +94,19 @@ it('should update the shopify credential successfully', function () {
 
     $updatedData = [
         'shopUrl'      => 'https://test.myshopify.com',
-        'accessToken'  => 'valid_access_token',
+        'apiKey'  => 'valid_access_token',
         'storeLocales' => json_encode([['locale' => 'en', 'primary' => true]]),
         'salesChannel' => 'online',
         'locations'    => 'location1',
         'apiVersion'   => '2023-04',
     ];
 
-    $response = $this->put(route('shopify.credentials.update', ['id' => $credential->id]), $updatedData);
+    $response = $this->put(route('prestashop.credentials.update', ['id' => $credential->id]), $updatedData);
 
-    $response->assertRedirect(route('shopify.credentials.edit', ['id' => $credential->id]));
+    $response->assertRedirect(route('prestashop.credentials.edit', ['id' => $credential->id]));
     $response->assertSessionHas('success', trans('shopify::app.shopify.credential.update-success'));
 
-    $this->assertDatabaseHas('wk_shopify_credentials_config', [
+    $this->assertDatabaseHas('wk_prestashop_credentials_config', [
         'id'      => $credential->id,
         'shopUrl' => 'https://test.myshopify.com',
     ]);
@@ -115,30 +115,30 @@ it('should update the shopify credential successfully', function () {
 it('should returns the shopify credential edit page, with validation', function () {
     $this->loginAsAdmin();
 
-    $shopifyCredential = ShopifyCredentialsConfig::factory()->create();
+    $shopifyCredential = PrestashopCredentialsConfig::factory()->create();
     $updatedCredential = [
         'id'           => $shopifyCredential->id,
-        'accessToken'  => $shopifyCredential->accessToken,
+        'apiKey'  => $shopifyCredential->apiKey,
         'apiVersion'   => $shopifyCredential->apiVersion,
         'shopUrl'      => $shopifyCredential->shopUrl,
         'storeLocales' => [],
         'active'       => 0,
     ];
 
-    put(route('shopify.credentials.update', $shopifyCredential->id), $updatedCredential)
+    put(route('prestashop.credentials.update', $shopifyCredential->id), $updatedCredential)
         ->assertStatus(302)
-        ->assertSessionHasErrors(['shopUrl', 'accessToken']);
+        ->assertSessionHasErrors(['shopUrl', 'apiKey']);
 });
 
 it('should delete the shopify credential', function () {
     $this->loginAsAdmin();
 
-    $shopifyCredential = ShopifyCredentialsConfig::factory()->create();
+    $shopifyCredential = PrestashopCredentialsConfig::factory()->create();
 
-    delete(route('shopify.credentials.delete', $shopifyCredential->id))
+    delete(route('prestashop.credentials.delete', $shopifyCredential->id))
         ->assertStatus(200);
 
-    $this->assertDatabaseMissing($this->getFullTableName(ShopifyCredentialsConfig::class), [
+    $this->assertDatabaseMissing($this->getFullTableName(PrestashopCredentialsConfig::class), [
         'id' => $shopifyCredential->id,
     ]);
 });

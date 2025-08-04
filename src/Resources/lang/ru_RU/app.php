@@ -68,7 +68,7 @@ return [
                 'create'                => 'Создать учетные данные',
                 'url'                   => 'Shopify URL',
                 'shopifyurlplaceholder' => 'Shopify URL (например, http://demo.myshopify.com)',
-                'accesstoken'           => 'Токен доступа Admin API',
+                'apiKey'           => 'Токен доступа Admin API',
                 'apiVersion'            => 'Версия API',
                 'save'                  => 'Сохранить',
                 'back-btn'              => 'Назад',

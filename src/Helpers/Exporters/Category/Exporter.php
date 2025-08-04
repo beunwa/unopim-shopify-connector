@@ -10,8 +10,8 @@ use Webkul\DataTransfer\Jobs\Export\File\FlatItemBuffer as FileExportFileBuffer;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Exceptions\InvalidCredential;
 use Webkul\Prestashop\Exceptions\InvalidLocale;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\TranslationTrait;
@@ -69,8 +69,8 @@ class Exporter extends AbstractExporter
     public function __construct(
         protected JobTrackBatchRepository $exportBatchRepository,
         protected FileExportFileBuffer $exportFileBuffer,
-        protected ShopifyCredentialRepository $shopifyRepository,
-        protected ShopifyMappingRepository $shopifyMappingRepository,
+        protected PrestashopCredentialRepository $prestashopRepository,
+        protected PrestashopMappingRepository $prestashopMappingRepository,
     ) {
         parent::__construct($exportBatchRepository, $exportFileBuffer);
     }
@@ -96,7 +96,7 @@ class Exporter extends AbstractExporter
     {
         $filters = $this->getFilters();
 
-        $this->credential = $this->shopifyRepository->find($filters['credentials']);
+        $this->credential = $this->prestashopRepository->find($filters['credentials']);
 
         if (! $this->credential?->active) {
             $this->jobLogger->warning(trans('shopify::app.shopify.export.errors.invalid-credential'));
@@ -110,7 +110,7 @@ class Exporter extends AbstractExporter
 
         $this->credentialArray = [
             'shopUrl'     => $this->credential->shopUrl,
-            'accessToken' => $this->credential->accessToken,
+            'apiKey' => $this->credential->apiKey,
             'apiVersion'  => $this->credential->apiVersion,
         ];
     }

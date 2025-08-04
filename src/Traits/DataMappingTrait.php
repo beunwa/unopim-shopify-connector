@@ -14,7 +14,7 @@ trait DataMappingTrait
     {
         $code = $item['code'] ?? null;
         if ($code) {
-            $mappingCheck = $this->shopifyMappingRepository->where('code', $code)
+            $mappingCheck = $this->prestashopMappingRepository->where('code', $code)
                 ->where('entityType', $entity)
                 ->where('apiUrl', $this?->credential?->shopUrl)
                 ->get();
@@ -31,7 +31,7 @@ trait DataMappingTrait
     protected function checkMappingInDbForImage(string $code, string $entity, string $productSku): ?array
     {
         if ($code) {
-            $mappingCheck = $this->shopifyMappingRepository->where('code', $code)
+            $mappingCheck = $this->prestashopMappingRepository->where('code', $code)
                 ->where('entityType', $entity)
                 ->where('relatedSource', $productSku)
                 ->where('apiUrl', $this?->credential?->shopUrl)
@@ -48,7 +48,7 @@ trait DataMappingTrait
      */
     protected function getAllImageMappingBySku(string $entity, string $productId, array $attr = [], $galleryAttr = true): ?array
     {
-        $mappingCheck = $this->shopifyMappingRepository
+        $mappingCheck = $this->prestashopMappingRepository
             ->where('entityType', $entity)
             ->where('relatedId', $productId)
             ->where('apiUrl', $this?->credential?->shopUrl);
@@ -72,7 +72,7 @@ trait DataMappingTrait
     protected function checkMappingInDbForGallery(string $attributeCode, string $entity, string $productSku, $asset = false): ?array
     {
         if ($attributeCode) {
-            $mappedData = $this->shopifyMappingRepository
+            $mappedData = $this->prestashopMappingRepository
                 ->where('entityType', $entity)
                 ->where('relatedSource', $productSku)
                 ->where('apiUrl', $this?->credential?->shopUrl)
@@ -120,13 +120,13 @@ trait DataMappingTrait
                 'apiUrl'        => $this?->credential?->shopUrl,
             ];
 
-            $this->shopifyMappingRepository->create($mappingData);
+            $this->prestashopMappingRepository->create($mappingData);
         } elseif (isset($data[0]['userErrors'][0]['message']) && $data[0]['userErrors'][0]['message'] == 'Collection does not exist' && $mapping) {
-            $this->shopifyMappingRepository->delete($mapping[0]['id']);
+            $this->prestashopMappingRepository->delete($mapping[0]['id']);
 
             $credential = [
                 'shopUrl'     => $this->credential->shopUrl,
-                'accessToken' => $this->credential->accessToken,
+                'apiKey' => $this->credential->apiKey,
                 'apiVersion'  => $this->credential->apiVersion,
             ];
 
@@ -143,7 +143,7 @@ trait DataMappingTrait
                     'apiUrl'        => $this->credential->shopUrl,
                 ];
 
-                $this->shopifyMappingRepository->create($mappingData);
+                $this->prestashopMappingRepository->create($mappingData);
             }
         } else {
             $mappingData = [
@@ -154,7 +154,7 @@ trait DataMappingTrait
                 'apiUrl'        => $this->credential->shopUrl,
             ];
 
-            $this->shopifyMappingRepository->update($mappingData, $mapping[0]['id']);
+            $this->prestashopMappingRepository->update($mappingData, $mapping[0]['id']);
         }
 
         return $response;
@@ -174,7 +174,7 @@ trait DataMappingTrait
             'apiUrl'        => $this->credential->shopUrl,
         ];
 
-        $this->shopifyMappingRepository->create($mappingData);
+        $this->prestashopMappingRepository->create($mappingData);
     }
 
     /**
@@ -191,7 +191,7 @@ trait DataMappingTrait
                 'apiUrl'        => $this->credential->shopUrl,
             ];
 
-            $this->shopifyMappingRepository->update($mappingData, $mappingId);
+            $this->prestashopMappingRepository->update($mappingData, $mappingId);
         }
     }
 
@@ -217,7 +217,7 @@ trait DataMappingTrait
             'apiUrl'        => $this->credential->shopUrl,
         ];
 
-        $this->shopifyMappingRepository->create($mappingData);
+        $this->prestashopMappingRepository->create($mappingData);
     }
 
     /**
@@ -225,7 +225,7 @@ trait DataMappingTrait
      */
     protected function deleteProductMapping(string $productId): void
     {
-        $mappings = $this->shopifyMappingRepository->where('externalId', $productId)
+        $mappings = $this->prestashopMappingRepository->where('externalId', $productId)
             ->orWhere('relatedId', $productId)->delete();
     }
 
@@ -234,7 +234,7 @@ trait DataMappingTrait
      */
     protected function deleteProductVariantMapping(string $variant, string $sku): void
     {
-        $mappings = $this->shopifyMappingRepository->where('externalId', $variant)->delete();
+        $mappings = $this->prestashopMappingRepository->where('externalId', $variant)->delete();
     }
 
     /**
@@ -242,7 +242,7 @@ trait DataMappingTrait
      */
     protected function deleteProductMediaMapping(array $mediaIds): void
     {
-        $mappings = $this->shopifyMappingRepository->whereIN('externalId', $mediaIds)->delete();
+        $mappings = $this->prestashopMappingRepository->whereIN('externalId', $mediaIds)->delete();
     }
 
     /**
@@ -250,7 +250,7 @@ trait DataMappingTrait
      */
     protected function deleteProductMediaMappingById(string $productId, string $entityType): void
     {
-        $this->shopifyMappingRepository
+        $this->prestashopMappingRepository
             ->where('relatedId', $productId)
             ->where('entityType', $entityType)
             ->delete();

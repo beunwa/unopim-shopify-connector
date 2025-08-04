@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wk_shopify_credentials_config', function (Blueprint $table) {
+        Schema::create('wk_prestashop_credentials_config', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('shopUrl')->unique();
-            $table->string('accessToken');
+            $table->string('apiKey');
             $table->boolean('active')->default(false);
             $table->string('apiVersion')->nullable();
             $table->json('storelocaleMapping')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wk_shopify_credentials_config');
+        Schema::dropIfExists('wk_prestashop_credentials_config');
     }
 };

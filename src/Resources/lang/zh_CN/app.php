@@ -68,7 +68,7 @@ return [
                 'create'                => '创建凭据',
                 'url'                   => 'Shopify URL',
                 'shopifyurlplaceholder' => 'Shopify URL（例如：http://demo.myshopify.com）',
-                'accesstoken'           => '管理员 API 访问令牌',
+                'apiKey'           => '管理员 API 访问令牌',
                 'apiVersion'            => 'API 版本',
                 'save'                  => '保存',
                 'back-btn'              => '返回',

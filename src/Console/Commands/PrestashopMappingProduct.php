@@ -8,8 +8,8 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
-use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 
@@ -46,15 +46,15 @@ class PrestashopMappingProduct extends Command
     public $duplicateSku = [];
 
     public function __construct(
-        protected ShopifyMappingRepository $shopifyMappingRepository,
-        protected ShopifyExportMappingRepository $shopifyExportmapping,
+        protected PrestashopMappingRepository $prestashopMappingRepository,
+        protected PrestashopExportMappingRepository $prestashopExportmapping,
     ) {
         parent::__construct();
     }
 
     public function initialize(InputInterface $input, OutputInterface $output)
     {
-        $mappings = $this->shopifyExportmapping->find(1);
+        $mappings = $this->prestashopExportmapping->find(1);
         $exportSettings = $mappings->mapping['shopify_connector_settings'];
         if (isset($exportSettings['images'])) {
             $this->imagesAttr = explode(',', $exportSettings['images'] ?? '');
@@ -73,7 +73,7 @@ class PrestashopMappingProduct extends Command
         $shopUrl = $input->getArgument('shopUrl');
         $onlyNew = filter_var($input->getOption('onlynew'), FILTER_VALIDATE_BOOLEAN);
         $shopUrl = rtrim($shopUrl, '/');
-        $this->credential = DB::table('wk_shopify_credentials_config')
+        $this->credential = DB::table('wk_prestashop_credentials_config')
             ->where('shopUrl', $shopUrl)
             ->first();
         $io = new SymfonyStyle($input, $output);
@@ -87,9 +87,8 @@ class PrestashopMappingProduct extends Command
         }
         $output->writeln('<info>Mapping migration process start </info>');
         $this->credentialArray = [
-            'shopUrl'     => $this->credential?->shopUrl,
-            'accessToken' => $this->credential?->accessToken,
-            'apiVersion'  => $this->credential?->apiVersion,
+            'shopUrl' => $this->credential?->shopUrl,
+            'apiKey'  => $this->credential?->apiKey,
         ];
 
         $totalProduct = $this->getTotalProduct();

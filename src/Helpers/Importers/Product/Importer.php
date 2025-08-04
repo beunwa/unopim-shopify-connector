@@ -16,9 +16,9 @@ use Webkul\DataTransfer\Helpers\Importers\Product\SKUStorage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
-use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\ValidatedBatched;
@@ -146,11 +146,11 @@ class Importer extends AbstractImporter
         protected SKUStorage $skuStorage,
         protected ChannelRepository $channelRepository,
         protected FieldProcessor $fieldProcessor,
-        protected ShopifyCredentialRepository $shopifyRepository,
-        protected ShopifyExportMappingRepository $shopifyExportmapping,
+        protected PrestashopCredentialRepository $prestashopRepository,
+        protected PrestashopExportMappingRepository $prestashopExportmapping,
         protected FileStorer $fileStorer,
         protected CategoryRepository $categoryRepository,
-        protected ShopifyMappingRepository $shopifyMappingRepository,
+        protected PrestashopMappingRepository $prestashopMappingRepository,
         protected ShoifyMetaFieldType $shoifyMetaFieldType,
     ) {
         parent::__construct($importBatchRepository);
@@ -167,7 +167,7 @@ class Importer extends AbstractImporter
 
         $this->attributes = $this->attributeRepository->all()->keyBy('code');
 
-        $this->importMapping = $this->shopifyExportmapping->find(3);
+        $this->importMapping = $this->prestashopExportmapping->find(3);
 
         $this->initializeChannels();
 
@@ -187,7 +187,7 @@ class Importer extends AbstractImporter
      */
     protected function initializeChannels(): void
     {
-        $this->exportMapping = $this->shopifyExportmapping->find(3);
+        $this->exportMapping = $this->prestashopExportmapping->find(3);
 
         $channels = $this->channelRepository->all();
 
@@ -230,7 +230,7 @@ class Importer extends AbstractImporter
 
         $this->shoifyMetaFieldTypeData = $this->shoifyMetaFieldType->getMetaFieldTypeInShopify();
 
-        $this->credential = $this->shopifyRepository->find($filters['credentials'] ?? null);
+        $this->credential = $this->prestashopRepository->find($filters['credentials'] ?? null);
         if (! $this->credential?->active) {
             throw new \InvalidArgumentException('Invalid Credential: The credential is either disabled, incorrect, or does not exist');
         }
@@ -257,7 +257,7 @@ class Importer extends AbstractImporter
 
         $this->credentialArray = [
             'shopUrl'     => $this->credential?->shopUrl,
-            'accessToken' => $this->credential?->accessToken,
+            'apiKey' => $this->credential?->apiKey,
             'apiVersion'  => $this->credential?->apiVersion,
         ];
 
@@ -304,7 +304,7 @@ class Importer extends AbstractImporter
 
                 $this->credentialArray = [
                     'shopUrl'     => $this->credential?->shopUrl,
-                    'accessToken' => $this->credential?->accessToken,
+                    'apiKey' => $this->credential?->apiKey,
                     'apiVersion'  => $this->credential?->apiVersion,
                 ];
 

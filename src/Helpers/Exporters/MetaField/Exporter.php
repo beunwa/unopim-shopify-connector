@@ -11,8 +11,8 @@ use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Exceptions\InvalidCredential;
 use Webkul\Prestashop\Exceptions\InvalidLocale;
 use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopMetaFieldRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\TranslationTrait;
@@ -59,9 +59,9 @@ class Exporter extends AbstractExporter
     public function __construct(
         protected JobTrackBatchRepository $exportBatchRepository,
         protected FileExportFileBuffer $exportFileBuffer,
-        protected ShopifyCredentialRepository $shopifyRepository,
+        protected PrestashopCredentialRepository $prestashopRepository,
         protected ShoifyMetaFieldType $shoifyMetaFieldType,
-        protected ShopifyMetaFieldRepository $shopifyMetaFieldRepository
+        protected PrestashopMetaFieldRepository $prestashopMetaFieldRepository
     ) {
         parent::__construct($exportBatchRepository, $exportFileBuffer);
     }
@@ -85,7 +85,7 @@ class Exporter extends AbstractExporter
     {
         $filters = $this->getFilters();
         $this->shoifyMetaFieldTypeData = $this->shoifyMetaFieldType->getMetaFieldTypeInShopify();
-        $this->credential = $this->shopifyRepository->find($filters['credentials']);
+        $this->credential = $this->prestashopRepository->find($filters['credentials']);
 
         if (! $this->credential?->active) {
             $this->jobLogger->warning(trans('shopify::app.shopify.export.errors.invalid-credential'));
@@ -99,7 +99,7 @@ class Exporter extends AbstractExporter
 
         $this->credentialArray = [
             'shopUrl'     => $this->credential->shopUrl,
-            'accessToken' => $this->credential->accessToken,
+            'apiKey' => $this->credential->apiKey,
             'apiVersion'  => $this->credential->apiVersion,
         ];
     }
@@ -242,7 +242,7 @@ class Exporter extends AbstractExporter
         if ($metaId) {
             $apiUrlData = [$shopUrl => $metaId];
 
-            $this->shopifyMetaFieldRepository->update(
+            $this->prestashopMetaFieldRepository->update(
                 ['apiUrl' => json_encode($apiUrlData, true)],
                 $rawData['id']
             );

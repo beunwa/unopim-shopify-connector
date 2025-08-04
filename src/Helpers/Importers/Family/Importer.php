@@ -13,8 +13,8 @@ use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Helpers\Importers\Category\Storage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 
@@ -72,9 +72,9 @@ class Importer extends AbstractImporter
         protected Storage $categoryStorage,
         protected AttributeRepository $attributeRepository,
         protected LocaleRepository $localeRepository,
-        protected ShopifyCredentialRepository $shopifyRepository,
+        protected PrestashopCredentialRepository $prestashopRepository,
         protected AttributeFamilyRepository $attributeFamilyRepository,
-        protected ShopifyExportMappingRepository $shopifyExportmapping,
+        protected PrestashopExportMappingRepository $prestashopExportmapping,
         protected AttributeFamilyGroupMappingRepository $attributeFamilyGroupMappingRepository,
     ) {
         parent::__construct($importBatchRepository);
@@ -88,7 +88,7 @@ class Importer extends AbstractImporter
     protected function initLocales(): void
     {
         $this->locales = $this->localeRepository->getActiveLocales()->pluck('code')->toArray();
-        $this->importMapping = $this->shopifyExportmapping->find(3);
+        $this->importMapping = $this->prestashopExportmapping->find(3);
     }
 
     /**
@@ -98,7 +98,7 @@ class Importer extends AbstractImporter
     {
         $filters = $this->import->jobInstance->filters;
 
-        $this->credential = $this->shopifyRepository->find($filters['credentials'] ?? null);
+        $this->credential = $this->prestashopRepository->find($filters['credentials'] ?? null);
 
         $this->defintiionMapping = array_merge(array_keys($this->credential?->extras['productMetafield'] ?? []), array_keys($this->credential?->extras['productVariantMetafield'] ?? []));
 
@@ -122,7 +122,7 @@ class Importer extends AbstractImporter
 
         $this->credentialArray = [
             'shopUrl'     => $this->credential?->shopUrl,
-            'accessToken' => $this->credential?->accessToken,
+            'apiKey' => $this->credential?->apiKey,
             'apiVersion'  => $this->credential?->apiVersion,
         ];
 

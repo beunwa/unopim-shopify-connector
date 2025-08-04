@@ -18,11 +18,11 @@ trait PrestashopRequest
         string $method = 'GET',
         ?array $payload = []
     ): array {
-        if (! $credential || ! isset($credential['shopUrl']) || ! (isset($credential['apiKey']) || isset($credential['accessToken']))) {
+        if (! $credential || ! isset($credential['shopUrl']) || ! isset($credential['apiKey'])) {
             throw new \InvalidArgumentException('Invalid Prestashop credentials provided.');
         }
 
-        $apiKey = $credential['apiKey'] ?? $credential['accessToken'];
+        $apiKey = $credential['apiKey'];
 
         $client = new PrestashopApiClient($credential['shopUrl'], $apiKey);
 

@@ -68,7 +68,7 @@ return [
                 'create'                => 'Crear Credencial',
                 'url'                   => 'URL de Shopify',
                 'shopifyurlplaceholder' => 'URL de Shopify (ej. http://demo.myshopify.com)',
-                'accesstoken'           => 'Token de acceso de Admin API',
+                'apiKey'           => 'Token de acceso de Admin API',
                 'apiVersion'            => 'Versión de API',
                 'save'                  => 'Guardar',
                 'back-btn'              => 'Volver',

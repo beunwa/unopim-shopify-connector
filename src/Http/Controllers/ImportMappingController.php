@@ -6,8 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Prestashop\Helpers\ShopifyFields;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 
 class ImportMappingController extends Controller
 {
@@ -17,8 +17,8 @@ class ImportMappingController extends Controller
      * @return void
      */
     public function __construct(
-        protected ShopifyExportMappingRepository $shopifyExportMappingRepository,
-        protected ShopifyCredentialRepository $shopifyCredentialRepository
+        protected PrestashopExportMappingRepository $prestashopExportMappingRepository,
+        protected PrestashopCredentialRepository $shopifyCredentialRepository
     ) {}
 
     /**
@@ -27,7 +27,7 @@ class ImportMappingController extends Controller
     public function index(): View
     {
         $mappingFields = (new ShopifyFields)->getMappingField();
-        $shopifyMapping = $this->shopifyExportMappingRepository->find(3);
+        $shopifyMapping = $this->prestashopExportMappingRepository->find(3);
         $shopifyCredentials = $this->shopifyCredentialRepository->all()->toArray();
 
         $attribute = [];
@@ -79,10 +79,10 @@ class ImportMappingController extends Controller
             $mappingFieldss['mapping'] = $mappingFields;
         }
 
-        $shopifyMapping = $this->shopifyExportMappingRepository->find(3);
+        $shopifyMapping = $this->prestashopExportMappingRepository->find(3);
 
         if ($shopifyMapping && $shopifyMapping->toArray()['mapping'] != $mappingFieldss['mapping']) {
-            $shopifyMapping = $this->shopifyExportMappingRepository->update($mappingFieldss, 3);
+            $shopifyMapping = $this->prestashopExportMappingRepository->update($mappingFieldss, 3);
         }
 
         session()->flash('success', trans('shopify::app.shopify.import.mapping.created'));

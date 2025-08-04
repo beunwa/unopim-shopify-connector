@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wk_shopify_data_mapping', function (Blueprint $table) {
+        Schema::create('wk_prestashop_data_mapping', function (Blueprint $table) {
             $table->id();
             $table->string('entityType', 255)->nullable();
             $table->string('code', 255)->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wk_shopify_data_mapping');
+        Schema::dropIfExists('wk_prestashop_data_mapping');
     }
 };
