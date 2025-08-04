@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wk_shopify_metafield_defination', function (Blueprint $table) {
+        Schema::create('wk_prestashop_metafield_defination', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('code', 255);
             $table->string('attribute', 255);
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wk_shopify_metafield_defination');
+        Schema::dropIfExists('wk_prestashop_metafield_defination');
     }
 };

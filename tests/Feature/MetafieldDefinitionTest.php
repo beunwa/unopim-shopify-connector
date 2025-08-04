@@ -1,6 +1,6 @@
 <?php
 
-use Webkul\Prestashop\Models\ShopifyMetaFieldsConfig;
+use Webkul\Prestashop\Models\PrestashopMetaFieldsConfig;
 
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -8,7 +8,7 @@ use function Pest\Laravel\post;
 it('should returns the shopify Metafield Definitions index page', function () {
     $this->loginAsAdmin();
 
-    get(route('shopify.metafield.index'))
+    get(route('prestashop.metafield.index'))
         ->assertStatus(200)
         ->assertSeeText(trans('shopify::app.shopify.metafield.index.title'));
 });
@@ -16,9 +16,9 @@ it('should returns the shopify Metafield Definitions index page', function () {
 it('should returns the shopify Metafield Definitions edit page', function () {
     $this->loginAsAdmin();
 
-    $shopifyMetafield = ShopifyMetaFieldsConfig::factory()->create();
+    $shopifyMetafield = PrestashopMetaFieldsConfig::factory()->create();
 
-    get(route('shopify.metafield.edit', ['id' => $shopifyMetafield->id]))
+    get(route('prestashop.metafield.edit', ['id' => $shopifyMetafield->id]))
         ->assertStatus(200);
 });
 
@@ -34,13 +34,13 @@ it('should create the shopify Metafield Definitions with valid input', function 
         'attribute'          => 'test_attribute',
     ];
 
-    post(route('shopify.metafield.store'), $shopifyMetaField)
+    post(route('prestashop.metafield.store'), $shopifyMetaField)
         ->assertStatus(200);
 });
 
 it('should update the shopify Metafield Definitions with valid input', function () {
     $this->loginAsAdmin();
-    $metaField = ShopifyMetaFieldsConfig::factory()->create([
+    $metaField = PrestashopMetaFieldsConfig::factory()->create([
         'ownerType'          => 'test_ownerType',
         'code'               => 'test_code',
         'type'               => 'test_type',
@@ -55,9 +55,9 @@ it('should update the shopify Metafield Definitions with valid input', function 
         'storefronts'        => '1',
     ];
 
-    $response = $this->put(route('shopify.metafield.update', ['id' => $metaField->id]), $updatedData);
+    $response = $this->put(route('prestashop.metafield.update', ['id' => $metaField->id]), $updatedData);
 
-    $response->assertRedirect(route('shopify.metafield.edit', ['id' => $metaField->id]));
+    $response->assertRedirect(route('prestashop.metafield.edit', ['id' => $metaField->id]));
 
     $response->assertSessionHas('success', trans('shopify::app.shopify.metafield.update-success'));
 });

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shopify_setting_configuration_values', function (Blueprint $table) {
+        Schema::create('prestashop_setting_configuration_values', function (Blueprint $table) {
             $table->id();
             $table->json('mapping')->nullable();
             $table->json('extras')->nullable();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shopify_setting_configuration_values');
+        Schema::dropIfExists('prestashop_setting_configuration_values');
     }
 };

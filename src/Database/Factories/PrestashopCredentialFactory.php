@@ -3,16 +3,16 @@
 namespace Webkul\Prestashop\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Webkul\Prestashop\Models\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Models\PrestashopCredentialsConfig;
 
-class ShopifyCredentialFactory extends Factory
+class PrestashopCredentialFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ShopifyCredentialsConfig::class;
+    protected $model = PrestashopCredentialsConfig::class;
 
     /**
      * Define the model's default state.
@@ -23,9 +23,8 @@ class ShopifyCredentialFactory extends Factory
     public function definition()
     {
         return [
-            'shopUrl'      => 'https://demotest.myshopify.com',
-            'apiVersion'   => '2025-01',
-            'accessToken'  => '$2y$10$92IXUNpkjO0rOQ5byMi',
+            'shopUrl' => 'https://demo.prestashop.com',
+            'apiKey'  => 'PRESTASHOP_API_KEY',
         ];
     }
 }

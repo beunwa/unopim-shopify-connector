@@ -8,7 +8,7 @@ use Webkul\DataTransfer\Contracts\JobTrackBatch as JobTrackBatchContract;
 use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\ValidatedBatched;
 
@@ -56,7 +56,7 @@ class Importer extends AbstractImporter
         protected JobTrackBatchRepository $importBatchRepository,
         protected AttributeRepository $attributeRepository,
         protected LocaleRepository $localeRepository,
-        protected ShopifyCredentialRepository $shopifyRepository,
+        protected PrestashopCredentialRepository $prestashopRepository,
     ) {
         parent::__construct($importBatchRepository);
 
@@ -78,7 +78,7 @@ class Importer extends AbstractImporter
     {
         $filters = $this->import->jobInstance->filters;
 
-        $this->credential = $this->shopifyRepository->find($filters['credentials'] ?? null);
+        $this->credential = $this->prestashopRepository->find($filters['credentials'] ?? null);
 
         $this->locale = $filters['locale'] ?? null;
     }
@@ -97,7 +97,7 @@ class Importer extends AbstractImporter
         }
         $this->credentialArray = [
             'shopUrl'     => $this->credential?->shopUrl,
-            'accessToken' => $this->credential?->accessToken,
+            'apiKey' => $this->credential?->apiKey,
             'apiVersion'  => $this->credential?->apiVersion,
         ];
 

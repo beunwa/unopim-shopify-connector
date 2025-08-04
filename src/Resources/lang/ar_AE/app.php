@@ -68,7 +68,7 @@ return [
                 'create'                => 'إنشاء بيانات اعتماد',
                 'url'                   => 'رابط شوبفاي',
                 'shopifyurlplaceholder' => 'رابط شوبفاي (مثل http://demo.myshopify.com)',
-                'accesstoken'           => 'رمز وصول API الإداري',
+                'apiKey'           => 'رمز وصول API الإداري',
                 'apiVersion'            => 'إصدار API',
                 'save'                  => 'حفظ',
                 'back-btn'              => 'عودة',

@@ -2,7 +2,7 @@
 
 namespace Webkul\Prestashop\Traits;
 
-use Webkul\Prestashop\Contracts\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Contracts\PrestashopCredentialsConfig;
 
 /**
  * Trait for handling Shopify translation requests.
@@ -27,7 +27,7 @@ trait TranslationTrait
         array $rowData,
         array $addedmetafields,
         array $parentValues,
-        ShopifyCredentialsConfig $credential,
+        PrestashopCredentialsConfig $credential,
         array $credentialAsArray,
         $namespaceKeys,
     ): void {
@@ -249,7 +249,7 @@ trait TranslationTrait
     public function categoryTranslation(
         string $locale,
         array $rawData,
-        ShopifyCredentialsConfig $credential,
+        PrestashopCredentialsConfig $credential,
         array $credentialAsArray,
         array $collectionResult
     ): void {

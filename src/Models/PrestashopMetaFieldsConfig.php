@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 use Webkul\HistoryControl\Contracts\HistoryAuditable as HistoryContract;
 use Webkul\HistoryControl\Interfaces\PresentableHistoryInterface;
 use Webkul\HistoryControl\Traits\HistoryTrait;
-use Webkul\Prestashop\Contracts\ShopifyMetaFieldsConfig as ShopifyMetaFieldsContract;
-use Webkul\Prestashop\Database\Factories\ShopifyMetaFieldFactory;
+use Webkul\Prestashop\Contracts\PrestashopMetaFieldsConfig as PrestashopMetaFieldsContract;
+use Webkul\Prestashop\Database\Factories\PrestashopMetaFieldFactory;
 use Webkul\Prestashop\Presenters\JsonDataPresenter;
 
-class ShopifyMetaFieldsConfig extends Model implements HistoryContract, PresentableHistoryInterface, ShopifyMetaFieldsContract
+class PrestashopMetaFieldsConfig extends Model implements HistoryContract, PresentableHistoryInterface, PrestashopMetaFieldsContract
 {
     use HasFactory, HistoryTrait;
 
-    protected $table = 'wk_shopify_metafield_defination';
+    protected $table = 'wk_prestashop_metafield_defination';
 
-    protected $historyTags = ['shopify_meta_fields'];
+    protected $historyTags = ['prestashop_meta_fields'];
 
     protected $fillable = [
         'ownerType',
@@ -57,6 +57,6 @@ class ShopifyMetaFieldsConfig extends Model implements HistoryContract, Presenta
      */
     protected static function newFactory(): Factory
     {
-        return ShopifyMetaFieldFactory::new();
+        return PrestashopMetaFieldFactory::new();
     }
 }

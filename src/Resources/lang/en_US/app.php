@@ -70,7 +70,7 @@ return [
                 'create'                => 'Create Credential',
                 'url'                   => 'Shopify URL',
                 'shopifyurlplaceholder' => 'http://demo.myshopify.com',
-                'accesstoken'           => 'Admin API access token',
+                'apiKey'                => 'API Key',
                 'apiVersion'            => 'API Version',
                 'save'                  => 'Save',
                 'back-btn'              => 'Back',

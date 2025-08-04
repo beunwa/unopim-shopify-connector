@@ -2,4 +2,4 @@
 
 namespace Webkul\Prestashop\Contracts;
 
-interface ShopifyExportMappingConfig {}
+interface PrestashopMetaFieldsConfig {}

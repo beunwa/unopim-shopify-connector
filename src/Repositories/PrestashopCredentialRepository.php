@@ -3,15 +3,15 @@
 namespace Webkul\Prestashop\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Prestashop\Contracts\ShopifyExportMappingConfig;
+use Webkul\Prestashop\Contracts\PrestashopCredentialsConfig;
 
-class ShopifyExportMappingRepository extends Repository
+class PrestashopCredentialRepository extends Repository
 {
     /**
      * Specify model class name.
      */
     public function model(): string
     {
-        return ShopifyExportMappingConfig::class;
+        return PrestashopCredentialsConfig::class;
     }
 }

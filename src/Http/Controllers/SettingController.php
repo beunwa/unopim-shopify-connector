@@ -5,7 +5,7 @@ namespace Webkul\Prestashop\Http\Controllers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 
 class SettingController extends Controller
 {
@@ -15,7 +15,7 @@ class SettingController extends Controller
      * @return void
      */
     public function __construct(
-        protected ShopifyExportMappingRepository $shopifyExportMappingRepository,
+        protected PrestashopExportMappingRepository $prestashopExportMappingRepository,
     ) {}
 
     /**
@@ -23,7 +23,7 @@ class SettingController extends Controller
      */
     public function index(int $id): View
     {
-        $shopifySettings = $this->shopifyExportMappingRepository->find(2);
+        $shopifySettings = $this->prestashopExportMappingRepository->find(2);
 
         return view('prestashop::export.settings.index', compact('shopifySettings'));
     }
@@ -37,7 +37,7 @@ class SettingController extends Controller
 
         $filteredData = array_filter($data);
 
-        $shopifySettings = $this->shopifyExportMappingRepository->find(2);
+        $shopifySettings = $this->prestashopExportMappingRepository->find(2);
 
         if ($shopifySettings) {
             if (isset($filteredData['enable_named_tags_attribute']) || ! isset($filteredData['enable_tags_attribute'])) {
@@ -47,7 +47,7 @@ class SettingController extends Controller
             $filteredDataforSettings['mapping'] = $filteredData;
 
             if ($shopifySettings->mapping != $filteredDataforSettings['mapping']) {
-                $shopifyMapping = $this->shopifyExportMappingRepository->update($filteredDataforSettings, 2);
+                $shopifyMapping = $this->prestashopExportMappingRepository->update($filteredDataforSettings, 2);
             }
         }
 

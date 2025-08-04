@@ -8,7 +8,7 @@ use function Pest\Laravel\post;
 it('should show the shopify import-mappings page', function () {
     $this->loginAsAdmin();
 
-    get(route('admin.shopify.import-mappings', 3))
+    get(route('admin.prestashop.import-mappings', 3))
         ->assertStatus(200)
         ->assertSeeText(trans('shopify::app.shopify.import.mapping.title'));
 });
@@ -28,7 +28,7 @@ it('should update the import mapping', function () {
         'weight'          => $weight->code,
     ];
 
-    post(route('shopify.import-mappings.create'), $importMapping)
+    post(route('prestashop.import-mappings.create'), $importMapping)
         ->assertStatus(302)
         ->assertSessionHas(['success']);
 });

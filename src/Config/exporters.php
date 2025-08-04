@@ -71,7 +71,7 @@ return [
     'prestashopMetafield' => [
         'title'    => 'prestashop::app.exporters.prestashop.metafields',
         'exporter' => 'Webkul\Prestashop\Helpers\Exporters\MetaField\Exporter',
-        'source'   => 'Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository',
+        'source'   => 'Webkul\Prestashop\Repositories\PrestashopMetaFieldRepository',
         'filters'  => [
             'fields' => [
                 [

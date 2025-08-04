@@ -74,7 +74,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], f
 
             Route::get('selected-metafield-attribute', 'selectedMetafieldAttributes')->name('admin.prestashop.get-selected-attribute');
 
-            Route::get('get-prestashop-credentials', 'listShopifyCredential')->name('prestashop.credential.fetch-all');
+            Route::get('get-prestashop-credentials', 'listPrestashopCredential')->name('prestashop.credential.fetch-all');
 
             Route::get('get-prestashop-channel', 'listChannel')->name('prestashop.channel.fetch-all');
 

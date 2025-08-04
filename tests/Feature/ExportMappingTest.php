@@ -8,7 +8,7 @@ use function Pest\Laravel\post;
 it('should show the shopify settings page', function () {
     $this->loginAsAdmin();
 
-    get(route('admin.shopify.settings', 2))
+    get(route('admin.prestashop.settings', 2))
         ->assertStatus(200)
         ->assertSeeText(trans('shopify::app.shopify.export.setting.title'));
 });
@@ -22,7 +22,7 @@ it('should update the export setting mapping', function () {
         'option_name_label'     => 1,
     ];
 
-    post(route('shopify.export-settings.create'), $exportSetting)
+    post(route('prestashop.export-settings.create'), $exportSetting)
         ->assertStatus(302)
         ->assertSessionHas(['success']);
 });
@@ -30,7 +30,7 @@ it('should update the export setting mapping', function () {
 it('should show the shopify export-mappings page', function () {
     $this->loginAsAdmin();
 
-    get(route('admin.shopify.export-mappings', 1))
+    get(route('admin.prestashop.export-mappings', 1))
         ->assertStatus(200)
         ->assertSeeText(trans('shopify::app.shopify.export.mapping.title'));
 });
@@ -50,7 +50,7 @@ it('should update the export mapping', function () {
         'weight'          => $weight->code,
     ];
 
-    post(route('shopify.export-mappings.create'), $exportMapping)
+    post(route('prestashop.export-mappings.create'), $exportMapping)
         ->assertStatus(302)
         ->assertSessionHas(['success']);
 });
@@ -70,7 +70,7 @@ it('should update the export mapping with metafield mapping', function () {
         'weight'              => $weight->code,
     ];
 
-    post(route('shopify.export-mappings.create'), $exportMapping)
+    post(route('prestashop.export-mappings.create'), $exportMapping)
         ->assertStatus(302)
         ->assertSessionHas(['success']);
 });

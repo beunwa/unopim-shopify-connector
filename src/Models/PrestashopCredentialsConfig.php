@@ -8,23 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 use Webkul\HistoryControl\Contracts\HistoryAuditable as HistoryContract;
 use Webkul\HistoryControl\Interfaces\PresentableHistoryInterface;
 use Webkul\HistoryControl\Traits\HistoryTrait;
-use Webkul\Prestashop\Contracts\ShopifyCredentialsConfig as ShopifyCredentialsContract;
-use Webkul\Prestashop\Database\Factories\ShopifyCredentialFactory;
+use Webkul\Prestashop\Contracts\PrestashopCredentialsConfig as PrestashopCredentialsContract;
+use Webkul\Prestashop\Database\Factories\PrestashopCredentialFactory;
 use Webkul\Prestashop\Presenters\JsonDataPresenter;
 
-class ShopifyCredentialsConfig extends Model implements HistoryContract, PresentableHistoryInterface, ShopifyCredentialsContract
+class PrestashopCredentialsConfig extends Model implements HistoryContract, PresentableHistoryInterface, PrestashopCredentialsContract
 {
     use HasFactory, HistoryTrait;
 
-    protected $table = 'wk_shopify_credentials_config';
+    protected $table = 'wk_prestashop_credentials_config';
 
-    protected $historyTags = ['shopify_credentials'];
+    protected $historyTags = ['prestashop_credentials'];
 
-    protected $auditExclude = ['storeLocales', 'accessToken'];
+    protected $auditExclude = ['storeLocales', 'apiKey'];
 
     protected $fillable = [
         'shopUrl',
-        'accessToken',
+        'apiKey',
         'active',
         'apiVersion',
         'storelocaleMapping',
@@ -57,6 +57,6 @@ class ShopifyCredentialsConfig extends Model implements HistoryContract, Present
      */
     protected static function newFactory(): Factory
     {
-        return ShopifyCredentialFactory::new();
+        return PrestashopCredentialFactory::new();
     }
 }

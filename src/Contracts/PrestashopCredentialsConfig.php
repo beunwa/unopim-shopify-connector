@@ -2,4 +2,4 @@
 
 namespace Webkul\Prestashop\Contracts;
 
-interface ShopifyMetaFieldsConfig {}
+interface PrestashopCredentialsConfig {}

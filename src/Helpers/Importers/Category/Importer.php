@@ -12,8 +12,8 @@ use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Helpers\Importers\Category\Storage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
-use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
+use Webkul\Prestashop\Repositories\PrestashopMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\ValidatedBatched;
@@ -72,8 +72,8 @@ class Importer extends AbstractImporter
         protected Storage $categoryStorage,
         protected LocaleRepository $localeRepository,
         protected ChannelRepository $channelRepository,
-        protected ShopifyCredentialRepository $shopifyRepository,
-        protected ShopifyMappingRepository $shopifyMappingRepository,
+        protected PrestashopCredentialRepository $prestashopRepository,
+        protected PrestashopMappingRepository $prestashopMappingRepository,
     ) {
         parent::__construct($importBatchRepository);
 
@@ -95,7 +95,7 @@ class Importer extends AbstractImporter
     {
         $filters = $this->import->jobInstance->filters;
 
-        $this->credential = $this->shopifyRepository->find($filters['credentials'] ?? null);
+        $this->credential = $this->prestashopRepository->find($filters['credentials'] ?? null);
 
         $this->locale = $filters['locale'] ?? null;
     }
@@ -114,7 +114,7 @@ class Importer extends AbstractImporter
         }
         $this->credentialArray = [
             'shopUrl'     => $this->credential?->shopUrl,
-            'accessToken' => $this->credential?->accessToken,
+            'apiKey' => $this->credential?->apiKey,
             'apiVersion'  => $this->credential?->apiVersion,
         ];
 

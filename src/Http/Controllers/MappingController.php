@@ -8,7 +8,7 @@ use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
 use Webkul\Prestashop\Helpers\ShopifyFields;
 use Webkul\Prestashop\Http\Requests\ExportMappingForm;
-use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 
 class MappingController extends Controller
 {
@@ -18,7 +18,7 @@ class MappingController extends Controller
      * @return void
      */
     public function __construct(
-        protected ShopifyExportMappingRepository $shopifyExportMappingRepository,
+        protected PrestashopExportMappingRepository $prestashopExportMappingRepository,
     ) {}
 
     /**
@@ -27,7 +27,7 @@ class MappingController extends Controller
     public function index(): View
     {
         $mappingFields = (new ShopifyFields)->getMappingField();
-        $shopifyMapping = $this->shopifyExportMappingRepository->first();
+        $shopifyMapping = $this->prestashopExportMappingRepository->first();
 
         $object = (new ShoifyMetaFieldType);
         $metaFieldTypeInShopify = $object->getMetaFieldTypeInShopify();
@@ -91,10 +91,10 @@ class MappingController extends Controller
             $mappingFields[$sectionName][$row] = $value;
         }
 
-        $shopifyMapping = $this->shopifyExportMappingRepository->first();
+        $shopifyMapping = $this->prestashopExportMappingRepository->first();
 
         if ($shopifyMapping && $shopifyMapping->toArray()['mapping'] != $mappingFields) {
-            $shopifyMapping = $this->shopifyExportMappingRepository->update(['mapping' => $mappingFields], 1);
+            $shopifyMapping = $this->prestashopExportMappingRepository->update(['mapping' => $mappingFields], 1);
         }
 
         session()->flash('success', trans('shopify::app.shopify.export.mapping.created'));

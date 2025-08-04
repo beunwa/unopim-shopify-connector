@@ -89,22 +89,22 @@
                                 <x-admin::form.control-group.error control-name="shopUrl" />
                             </x-admin::form.control-group>
 
-                            <!-- accesstoken -->
+                            <!-- apiKey -->
                             <x-admin::form.control-group>
                                 <x-admin::form.control-group.label class="required">
-                                    @lang('shopify::app.shopify.credential.index.accesstoken')
+                                    @lang('shopify::app.shopify.credential.index.apiKey')
                                 </x-admin::form.control-group.label>
 
                                 <x-admin::form.control-group.control
                                     type="text"
-                                    id="accessToken"
-                                    name="accessToken"
+                                    id="apiKey"
+                                    name="apiKey"
                                     rules="required"
-                                    :label="trans('shopify::app.shopify.credential.index.accesstoken')"
-                                    :placeholder="trans('shopify::app.shopify.credential.index.accesstoken')"
+                                    :label="trans('shopify::app.shopify.credential.index.apiKey')"
+                                    :placeholder="trans('shopify::app.shopify.credential.index.apiKey')"
                                 />
 
-                                <x-admin::form.control-group.error control-name="accessToken" />
+                                <x-admin::form.control-group.error control-name="apiKey" />
                             </x-admin::form.control-group>
                             
                             <x-admin::form.control-group class="mb-4">

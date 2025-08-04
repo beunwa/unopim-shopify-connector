@@ -14,7 +14,7 @@ class CredentialDataGrid extends DataGrid
      */
     public function prepareQueryBuilder()
     {
-        $queryBuilder = DB::table('wk_shopify_credentials_config')
+        $queryBuilder = DB::table('wk_prestashop_credentials_config')
             ->select(
                 'id',
                 'shopUrl',

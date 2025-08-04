@@ -69,7 +69,7 @@ return [
                 'create'                => 'प्रमाण पत्र बनाएं',
                 'url'                   => 'Shopify URL',
                 'shopifyurlplaceholder' => 'Shopify URL (उदा. http://demo.myshopify.com)',
-                'accesstoken'           => 'एडमिन API एक्सेस टोकन',
+                'apiKey'           => 'एडमिन API एक्सेस टोकन',
                 'apiVersion'            => 'API संस्करण',
                 'save'                  => 'सहेजें',
                 'back-btn'              => 'वापस',

@@ -68,7 +68,7 @@ return [
                 'create'                => 'Créer un identifiant',
                 'url'                   => 'URL Shopify',
                 'shopifyurlplaceholder' => 'URL Shopify (ex. http://demo.myshopify.com)',
-                'accesstoken'           => 'Jeton d\'accès API Admin',
+                'apiKey'           => 'Jeton d\'accès API Admin',
                 'apiVersion'            => 'Version de l\'API',
                 'save'                  => 'Sauvegarder',
                 'back-btn'              => 'Retour',

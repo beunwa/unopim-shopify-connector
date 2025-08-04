@@ -7,9 +7,9 @@ use Webkul\Core\Providers\CoreModuleServiceProvider;
 class ModuleServiceProvider extends CoreModuleServiceProvider
 {
     protected $models = [
-        \Webkul\Prestashop\Models\ShopifyCredentialsConfig::class,
-        \Webkul\Prestashop\Models\ShopifyExportMappingConfig::class,
-        \Webkul\Prestashop\Models\ShopifyMappingConfig::class,
-        \Webkul\Prestashop\Models\ShopifyMetaFieldsConfig::class,
+        \Webkul\Prestashop\Models\PrestashopCredentialsConfig::class,
+        \Webkul\Prestashop\Models\PrestashopExportMappingConfig::class,
+        \Webkul\Prestashop\Models\PrestashopMappingConfig::class,
+        \Webkul\Prestashop\Models\PrestashopMetaFieldsConfig::class,
     ];
 }
