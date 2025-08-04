@@ -9,11 +9,11 @@ use Webkul\Prestashop\DataGrids\Catalog\CredentialDataGrid;
 use Webkul\Prestashop\Helpers\ShoifyApiVersion;
 use Webkul\Prestashop\Http\Requests\CredentialForm;
 use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 
 class CredentialController extends Controller
 {
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
 
     /**
      * Create a new controller instance.
@@ -67,7 +67,7 @@ class CredentialController extends Controller
 
         $data['active'] = 1;
 
-        $response = $this->requestGraphQlApiAction('getOneProduct', $data);
+        $response = $this->requestPrestashopApiAction('products', $data);
 
         if ($response['code'] != JsonResponse::HTTP_OK) {
             return new JsonResponse([
@@ -122,11 +122,11 @@ class CredentialController extends Controller
 
         $credentialData = $credential->getAttributes();
 
-        $response = $this->requestGraphQlApiAction('getShopPublishedLocales', $credentialData);
+        $response = $this->requestPrestashopApiAction('shop/locales', $credentialData);
 
-        $publishing = $this->requestGraphQlApiAction('getPublications', $credentialData);
+        $publishing = $this->requestPrestashopApiAction('publications', $credentialData);
 
-        $locationGetting = $this->requestGraphQlApiAction('getignLocations', $credentialData);
+        $locationGetting = $this->requestPrestashopApiAction('locations', $credentialData);
 
         $locationAll = $locationGetting['body']['data']['locations']['edges'] ?? [];
 
@@ -166,7 +166,7 @@ class CredentialController extends Controller
             'accessToken' => 'required',
         ]);
 
-        $response = $this->requestGraphQlApiAction('getOneProduct', $requestData);
+        $response = $this->requestPrestashopApiAction('products', $requestData);
 
         if ($response['code'] != 200) {
             return redirect()->route('shopify.credentials.edit', $id)

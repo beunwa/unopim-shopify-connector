@@ -71,7 +71,7 @@ trait TranslationTrait
                 }
 
                 if ($formatedVariable) {
-                    $response = $this->requestGraphQlApiAction('createTranslation', $credentialAsArray, $formatedVariable);
+                    $response = $this->requestPrestashopApiAction('createTranslation', $credentialAsArray, $formatedVariable);
                 }
             }
         }
@@ -138,7 +138,7 @@ trait TranslationTrait
             }
 
             if ($formatedVariable) {
-                $response = $this->requestGraphQlApiAction('createTranslation', $credentialAsArray, $formatedVariable);
+                $response = $this->requestPrestashopApiAction('createTranslation', $credentialAsArray, $formatedVariable);
             }
         }
     }
@@ -187,7 +187,7 @@ trait TranslationTrait
                 }
 
                 if ($formatedVariable) {
-                    $response = $this->requestGraphQlApiAction('createTranslation', $credentialAsArray, $formatedVariable);
+                    $response = $this->requestPrestashopApiAction('createTranslation', $credentialAsArray, $formatedVariable);
                 }
             }
         }
@@ -238,7 +238,7 @@ trait TranslationTrait
                     ];
                 }
 
-                $response = $this->requestGraphQlApiAction('createTranslation', $credentialAsArray, $formatedVariable);
+                $response = $this->requestPrestashopApiAction('createTranslation', $credentialAsArray, $formatedVariable);
             }
         }
     }
@@ -273,7 +273,7 @@ trait TranslationTrait
                     'translatableContentDigest' => hash('sha256', $collectionResult['title']),
                 ];
             }
-            $this->requestGraphQlApiAction('createTranslation', $credentialAsArray, $formatedVariable);
+            $this->requestPrestashopApiAction('createTranslation', $credentialAsArray, $formatedVariable);
         }
     }
 }

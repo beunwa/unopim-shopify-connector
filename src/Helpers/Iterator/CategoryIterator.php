@@ -2,11 +2,11 @@
 
 namespace Webkul\Prestashop\Helpers\Iterator;
 
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 
 class CategoryIterator implements \Iterator
 {
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
 
     private $cursor;                // Tracks the current cursor for pagination
 
@@ -77,19 +77,13 @@ class CategoryIterator implements \Iterator
     {
         $this->currentPageData = [];
         try {
-            $variables = [
-                'first' => 10,
-            ];
-            if ($this->cursor) {
-                $variables = [
-                    'first'       => 10,
-                    'afterCursor' => $this->cursor,
-                ];
+            $parameters = ['limit' => 10];
 
+            if ($this->cursor) {
+                $parameters['cursor'] = $this->cursor;
             }
 
-            $mutationType = $this->cursor ? 'GetCollectionsByCursor' : 'manualCollectionGetting';
-            $graphResponse = $this->requestGraphQlApiAction($mutationType, $this->credential, $variables);
+            $graphResponse = $this->requestPrestashopApiAction('categories', $this->credential, $parameters);
 
             $edges = $graphResponse['body']['data']['collections']['edges'] ?? [];
 

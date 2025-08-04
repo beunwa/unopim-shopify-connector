@@ -15,13 +15,13 @@ use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
 use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\ValidatedBatched;
 
 class Importer extends AbstractImporter
 {
     use DataMappingTrait;
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
     use ValidatedBatched;
 
     public const BATCH_SIZE = 10;
@@ -283,7 +283,7 @@ class Importer extends AbstractImporter
                 $variables['afterCursor'] = $cursor;
                 $collectionGettingType = 'GetCollectionsByCursor';
             }
-            $graphResponse = $this->requestGraphQlApiAction($collectionGettingType, $this->credentialArray, $variables);
+            $graphResponse = $this->requestPrestashopApiAction($collectionGettingType, $this->credentialArray, $variables);
 
             $graphqlCollection = ! empty($graphResponse['body']['data']['collections']['edges'])
                 ? $graphResponse['body']['data']['collections']['edges']

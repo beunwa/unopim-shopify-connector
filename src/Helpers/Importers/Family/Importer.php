@@ -16,12 +16,12 @@ use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
 use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 
 class Importer extends AbstractImporter
 {
     use DataMappingTrait;
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
 
     public const BATCH_SIZE = 10;
 
@@ -151,7 +151,7 @@ class Importer extends AbstractImporter
                 $mutationType = 'productOptionByCursor';
             }
 
-            $graphResponse = $this->requestGraphQlApiAction($mutationType, $this->credentialArray, $variables);
+            $graphResponse = $this->requestPrestashopApiAction($mutationType, $this->credentialArray, $variables);
 
             $graphqlOption = ! empty($graphResponse['body']['data']['products']['edges'])
                 ? $graphResponse['body']['data']['products']['edges']

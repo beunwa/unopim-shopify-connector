@@ -131,7 +131,7 @@ trait DataMappingTrait
             ];
 
             unset($formateItem['id']);
-            $response = $this->requestGraphQlApiAction('createCollection', $credential, ['input' => $formateItem]);
+            $response = $this->requestPrestashopApiAction('createCollection', $credential, ['input' => $formateItem]);
 
             $response = $response['body']['data']['collectionCreate'] ?? [];
             if (! empty($response['collection']['id'])) {
