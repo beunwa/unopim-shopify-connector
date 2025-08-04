@@ -3,8 +3,8 @@
 return [
     'shopifyCategories' => [
         'title'     => 'shopify::app.importers.shopify.category',
-        'importer'  => 'Webkul\Shopify\Helpers\Importers\Category\Importer',
-        'validator' => 'Webkul\Shopify\Validators\JobInstances\Import\ShopifyCategoryAndAttrValidator',
+        'importer'  => 'Webkul\Prestashop\Helpers\Importers\Category\Importer',
+        'validator' => 'Webkul\Prestashop\Validators\JobInstances\Import\ShopifyCategoryAndAttrValidator',
         'filters'   => [
             'fields'  => [
                 [
@@ -35,8 +35,8 @@ return [
 
     'shopifyAttribute' => [
         'title'     => 'shopify::app.importers.shopify.attribute',
-        'importer'  => 'Webkul\Shopify\Helpers\Importers\Attribute\Importer',
-        'validator' => 'Webkul\Shopify\Validators\JobInstances\Import\ShopifyCategoryAndAttrValidator',
+        'importer'  => 'Webkul\Prestashop\Helpers\Importers\Attribute\Importer',
+        'validator' => 'Webkul\Prestashop\Validators\JobInstances\Import\ShopifyCategoryAndAttrValidator',
         'filters'   => [
             'fields' => [
                 [
@@ -66,8 +66,8 @@ return [
 
     'shopifyfamily' => [
         'title'     => 'shopify::app.importers.shopify.family',
-        'importer'  => 'Webkul\Shopify\Helpers\Importers\Family\Importer',
-        'validator' => 'Webkul\Shopify\Validators\JobInstances\Import\ShopifyFamilyValidator',
+        'importer'  => 'Webkul\Prestashop\Helpers\Importers\Family\Importer',
+        'validator' => 'Webkul\Prestashop\Validators\JobInstances\Import\ShopifyFamilyValidator',
         'filters'   => [
             'fields' => [
                 [
@@ -108,8 +108,8 @@ return [
 
     'shopifyProduct' => [
         'title'     => 'shopify::app.importers.shopify.product',
-        'importer'  => 'Webkul\Shopify\Helpers\Importers\Product\Importer',
-        'validator' => 'Webkul\Shopify\Validators\JobInstances\Import\ShopifyProductValidator',
+        'importer'  => 'Webkul\Prestashop\Helpers\Importers\Product\Importer',
+        'validator' => 'Webkul\Prestashop\Validators\JobInstances\Import\ShopifyProductValidator',
         'filters'   => [
             'fields' => [
                 [
@@ -159,8 +159,8 @@ return [
 
     'shopifyMetaField' => [
         'title'     => 'shopify::app.importers.shopify.metafield',
-        'importer'  => 'Webkul\Shopify\Helpers\Importers\Metafield\Importer',
-        'validator' => 'Webkul\Shopify\Validators\JobInstances\Import\ShopifyCategoryAndAttrValidator',
+        'importer'  => 'Webkul\Prestashop\Helpers\Importers\Metafield\Importer',
+        'validator' => 'Webkul\Prestashop\Validators\JobInstances\Import\ShopifyCategoryAndAttrValidator',
         'filters'   => [
             'fields' => [
                 [

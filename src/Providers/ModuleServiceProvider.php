@@ -1,15 +1,15 @@
 <?php
 
-namespace Webkul\Shopify\Providers;
+namespace Webkul\Prestashop\Providers;
 
 use Webkul\Core\Providers\CoreModuleServiceProvider;
 
 class ModuleServiceProvider extends CoreModuleServiceProvider
 {
     protected $models = [
-        \Webkul\Shopify\Models\ShopifyCredentialsConfig::class,
-        \Webkul\Shopify\Models\ShopifyExportMappingConfig::class,
-        \Webkul\Shopify\Models\ShopifyMappingConfig::class,
-        \Webkul\Shopify\Models\ShopifyMetaFieldsConfig::class,
+        \Webkul\Prestashop\Models\ShopifyCredentialsConfig::class,
+        \Webkul\Prestashop\Models\ShopifyExportMappingConfig::class,
+        \Webkul\Prestashop\Models\ShopifyMappingConfig::class,
+        \Webkul\Prestashop\Models\ShopifyMetaFieldsConfig::class,
     ];
 }

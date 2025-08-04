@@ -1,15 +1,15 @@
 <?php
 
-namespace Webkul\Shopify\Http\Controllers;
+namespace Webkul\Prestashop\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
 use Webkul\Attribute\Repositories\AttributeRepository;
-use Webkul\Shopify\DataGrids\Catalog\MetaFieldDataGrid;
-use Webkul\Shopify\Helpers\ShoifyMetaFieldType;
-use Webkul\Shopify\Http\Requests\MetaFieldForm;
-use Webkul\Shopify\Repositories\ShopifyMetaFieldRepository;
+use Webkul\Prestashop\DataGrids\Catalog\MetaFieldDataGrid;
+use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
+use Webkul\Prestashop\Http\Requests\MetaFieldForm;
+use Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository;
 
 class MetaFieldController extends Controller
 {

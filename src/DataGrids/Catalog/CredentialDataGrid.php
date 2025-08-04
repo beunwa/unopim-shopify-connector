@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\DataGrids\Catalog;
+namespace Webkul\Prestashop\DataGrids\Catalog;
 
 use Illuminate\Support\Facades\DB;
 use Webkul\DataGrid\DataGrid;

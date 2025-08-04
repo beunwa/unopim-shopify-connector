@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Models;
+namespace Webkul\Prestashop\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Webkul\HistoryControl\Contracts\HistoryAuditable as HistoryContract;
 use Webkul\HistoryControl\Interfaces\PresentableHistoryInterface;
 use Webkul\HistoryControl\Traits\HistoryTrait;
-use Webkul\Shopify\Contracts\ShopifyCredentialsConfig as ShopifyCredentialsContract;
-use Webkul\Shopify\Database\Factories\ShopifyCredentialFactory;
-use Webkul\Shopify\Presenters\JsonDataPresenter;
+use Webkul\Prestashop\Contracts\ShopifyCredentialsConfig as ShopifyCredentialsContract;
+use Webkul\Prestashop\Database\Factories\ShopifyCredentialFactory;
+use Webkul\Prestashop\Presenters\JsonDataPresenter;
 
 class ShopifyCredentialsConfig extends Model implements HistoryContract, PresentableHistoryInterface, ShopifyCredentialsContract
 {

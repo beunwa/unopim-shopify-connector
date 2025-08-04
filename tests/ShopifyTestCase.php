@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Tests;
+namespace Webkul\Prestashop\Tests;
 
 use Tests\TestCase;
 use Webkul\User\Tests\Concerns\UserAssertions;

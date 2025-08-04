@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Helpers;
+namespace Webkul\Prestashop\Helpers;
 
 class ShoifyApiVersion
 {

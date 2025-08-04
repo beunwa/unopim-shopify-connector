@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Models;
+namespace Webkul\Prestashop\Models;
 
 use Konekt\Concord\Proxies\ModelProxy;
 

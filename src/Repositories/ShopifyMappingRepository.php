@@ -1,9 +1,9 @@
 <?php
 
-namespace Webkul\Shopify\Repositories;
+namespace Webkul\Prestashop\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Shopify\Contracts\ShopifyMappingConfig;
+use Webkul\Prestashop\Contracts\ShopifyMappingConfig;
 
 class ShopifyMappingRepository extends Repository
 {

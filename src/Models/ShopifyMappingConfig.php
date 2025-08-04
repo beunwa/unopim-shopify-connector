@@ -1,9 +1,9 @@
 <?php
 
-namespace Webkul\Shopify\Models;
+namespace Webkul\Prestashop\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Webkul\Shopify\Contracts\ShopifyMappingConfig as ShopifyMappingConfigContract;
+use Webkul\Prestashop\Contracts\ShopifyMappingConfig as ShopifyMappingConfigContract;
 
 class ShopifyMappingConfig extends Model implements ShopifyMappingConfigContract
 {

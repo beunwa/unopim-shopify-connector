@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Webkul\Shopify\Models\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Models\ShopifyCredentialsConfig;
 
 use function Pest\Laravel\delete;
 use function Pest\Laravel\get;

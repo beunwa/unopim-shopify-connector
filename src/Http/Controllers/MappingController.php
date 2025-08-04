@@ -1,14 +1,14 @@
 <?php
 
-namespace Webkul\Shopify\Http\Controllers;
+namespace Webkul\Prestashop\Http\Controllers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Shopify\Helpers\ShoifyMetaFieldType;
-use Webkul\Shopify\Helpers\ShopifyFields;
-use Webkul\Shopify\Http\Requests\ExportMappingForm;
-use Webkul\Shopify\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
+use Webkul\Prestashop\Helpers\ShopifyFields;
+use Webkul\Prestashop\Http\Requests\ExportMappingForm;
+use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 
 class MappingController extends Controller
 {

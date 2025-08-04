@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Http\Requests;
+namespace Webkul\Prestashop\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Webkul\Core\Rules\BooleanString;

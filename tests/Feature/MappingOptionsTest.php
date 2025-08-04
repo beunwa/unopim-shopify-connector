@@ -3,7 +3,7 @@
 use Webkul\Attribute\Models\Attribute;
 use Webkul\Core\Models\Channel;
 use Webkul\Core\Models\Currency;
-use Webkul\Shopify\Models\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Models\ShopifyCredentialsConfig;
 
 use function Pest\Laravel\get;
 

@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Webkul\Shopify\Http\Controllers\CredentialController;
-use Webkul\Shopify\Http\Controllers\ImportMappingController;
-use Webkul\Shopify\Http\Controllers\MappingController;
-use Webkul\Shopify\Http\Controllers\MetaFieldController;
-use Webkul\Shopify\Http\Controllers\OptionController;
-use Webkul\Shopify\Http\Controllers\SettingController;
+use Webkul\Prestashop\Http\Controllers\CredentialController;
+use Webkul\Prestashop\Http\Controllers\ImportMappingController;
+use Webkul\Prestashop\Http\Controllers\MappingController;
+use Webkul\Prestashop\Http\Controllers\MetaFieldController;
+use Webkul\Prestashop\Http\Controllers\OptionController;
+use Webkul\Prestashop\Http\Controllers\SettingController;
 
 /**
  * Catalog routes.

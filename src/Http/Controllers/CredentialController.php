@@ -1,15 +1,15 @@
 <?php
 
-namespace Webkul\Shopify\Http\Controllers;
+namespace Webkul\Prestashop\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Shopify\DataGrids\Catalog\CredentialDataGrid;
-use Webkul\Shopify\Helpers\ShoifyApiVersion;
-use Webkul\Shopify\Http\Requests\CredentialForm;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\DataGrids\Catalog\CredentialDataGrid;
+use Webkul\Prestashop\Helpers\ShoifyApiVersion;
+use Webkul\Prestashop\Http\Requests\CredentialForm;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
 
 class CredentialController extends Controller
 {

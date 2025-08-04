@@ -1,8 +1,8 @@
 <?php
 
-namespace Webkul\Shopify\Traits;
+namespace Webkul\Prestashop\Traits;
 
-use Webkul\Shopify\Contracts\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Contracts\ShopifyCredentialsConfig;
 
 /**
  * Trait for handling Shopify translation requests.

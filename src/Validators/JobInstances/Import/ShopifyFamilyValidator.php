@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Validators\JobInstances\Import;
+namespace Webkul\Prestashop\Validators\JobInstances\Import;
 
 use Webkul\DataTransfer\Validators\JobInstances\Default\JobValidator;
 

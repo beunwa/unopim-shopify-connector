@@ -1,11 +1,11 @@
 <?php
 
-namespace Webkul\Shopify\Http\Controllers;
+namespace Webkul\Prestashop\Http\Controllers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Shopify\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 
 class SettingController extends Controller
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Webkul\Shopify\Traits;
+namespace Webkul\Prestashop\Traits;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage as StorageFacade;
 use Webkul\DataTransfer\Helpers\Export as ExportHelper;
 use Webkul\DataTransfer\Models\JobTrack;
-use Webkul\Shopify\Exceptions\InvalidCredential;
-use Webkul\Shopify\Http\Client\GraphQLApiClient;
+use Webkul\Prestashop\Exceptions\InvalidCredential;
+use Webkul\Prestashop\Http\Client\GraphQLApiClient;
 
 /**
  * Trait for making GraphQL API requests to Shopify.

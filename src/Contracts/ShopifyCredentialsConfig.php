@@ -1,5 +1,5 @@
 <?php
 
-namespace Webkul\Shopify\Contracts;
+namespace Webkul\Prestashop\Contracts;
 
 interface ShopifyCredentialsConfig {}

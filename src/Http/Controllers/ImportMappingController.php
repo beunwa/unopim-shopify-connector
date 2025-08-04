@@ -1,13 +1,13 @@
 <?php
 
-namespace Webkul\Shopify\Http\Controllers;
+namespace Webkul\Prestashop\Http\Controllers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Shopify\Helpers\ShopifyFields;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Helpers\ShopifyFields;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 
 class ImportMappingController extends Controller
 {

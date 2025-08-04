@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Helpers\Importers\Category;
+namespace Webkul\Prestashop\Helpers\Importers\Category;
 
 use Illuminate\Support\Arr;
 use Webkul\Category\Repositories\CategoryFieldRepository;
@@ -12,11 +12,11 @@ use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Helpers\Importers\Category\Storage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Repositories\ShopifyMappingRepository;
-use Webkul\Shopify\Traits\DataMappingTrait;
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
-use Webkul\Shopify\Traits\ValidatedBatched;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Traits\DataMappingTrait;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\ValidatedBatched;
 
 class Importer extends AbstractImporter
 {
@@ -118,7 +118,7 @@ class Importer extends AbstractImporter
             'apiVersion'  => $this->credential?->apiVersion,
         ];
 
-        $collections = new \Webkul\Shopify\Helpers\Iterator\CategoryIterator($this->credentialArray);
+        $collections = new \Webkul\Prestashop\Helpers\Iterator\CategoryIterator($this->credentialArray);
 
         return $collections;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Helpers\Importers\Family;
+namespace Webkul\Prestashop\Helpers\Importers\Family;
 
 use Illuminate\Support\Facades\DB;
 use Webkul\Attribute\Repositories\AttributeFamilyGroupMappingRepository;
@@ -13,10 +13,10 @@ use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Helpers\Importers\Category\Storage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Repositories\ShopifyExportMappingRepository;
-use Webkul\Shopify\Traits\DataMappingTrait;
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Traits\DataMappingTrait;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
 
 class Importer extends AbstractImporter
 {
