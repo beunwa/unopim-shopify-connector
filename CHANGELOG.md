@@ -1,3 +1,8 @@
+# 2.0.0 ( 20 August 2025 )
+
+- Migrated package documentation and configuration to support PrestaShop 8.
+- Added sample environment variables and updated installation instructions.
+
 # 1.2.0 ( 28 July 2025 )
 
 - Added Playwright end-to-end testing.
