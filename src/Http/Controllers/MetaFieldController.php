@@ -71,7 +71,7 @@ class MetaFieldController extends Controller
         $metaFieldType = $object->getMetaFieldType();
         $metaFieldTypeInShopify = $object->getMetaFieldTypeInShopify();
 
-        return view('shopify::metafield.index', compact('metaFieldType', 'metaFieldTypeInShopify'));
+        return view('prestashop::metafield.index', compact('metaFieldType', 'metaFieldTypeInShopify'));
     }
 
     /**
@@ -168,7 +168,7 @@ class MetaFieldController extends Controller
         }
 
         return new JsonResponse([
-            'redirect_url' => route('shopify.metafield.edit', $metaFieldCreate->id),
+            'redirect_url' => route('prestashop.metafield.edit', $metaFieldCreate->id),
         ]);
     }
 
@@ -274,7 +274,7 @@ class MetaFieldController extends Controller
         $metaFieldType = $object->getMetaFieldType();
         $metaFieldTypeInShopify = $object->getMetaFieldTypeInShopify();
 
-        return view('shopify::metafield.edit', compact('metaField', 'metaFieldType', 'metaFieldTypeInShopify'));
+        return view('prestashop::metafield.edit', compact('metaField', 'metaFieldType', 'metaFieldTypeInShopify'));
     }
 
     /**
@@ -350,7 +350,7 @@ class MetaFieldController extends Controller
         }
 
         if (! empty($errors)) {
-            return redirect()->route('shopify.metafield.edit', $id)
+            return redirect()->route('prestashop.metafield.edit', $id)
                 ->withErrors($errors)
                 ->withInput();
         }
@@ -358,7 +358,7 @@ class MetaFieldController extends Controller
         $this->shopifyMetaFieldRepository->update($requestData, $id);
         session()->flash('success', trans('shopify::app.shopify.metafield.update-success'));
 
-        return redirect()->route('shopify.metafield.edit', $id);
+        return redirect()->route('prestashop.metafield.edit', $id);
     }
 
     /**

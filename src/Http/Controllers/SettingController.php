@@ -25,7 +25,7 @@ class SettingController extends Controller
     {
         $shopifySettings = $this->shopifyExportMappingRepository->find(2);
 
-        return view('shopify::export.settings.index', compact('shopifySettings'));
+        return view('prestashop::export.settings.index', compact('shopifySettings'));
     }
 
     /**
@@ -53,6 +53,6 @@ class SettingController extends Controller
 
         session()->flash('success', trans('shopify::app.shopify.export.settings.created'));
 
-        return redirect()->route('admin.shopify.settings', 2);
+        return redirect()->route('admin.prestashop.settings', 2);
     }
 }
