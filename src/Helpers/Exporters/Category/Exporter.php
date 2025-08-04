@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Helpers\Exporters\Category;
+namespace Webkul\Prestashop\Helpers\Exporters\Category;
 
 use Illuminate\Support\Facades\Event;
 use Webkul\DataTransfer\Contracts\JobTrackBatch as JobTrackBatchContract;
@@ -8,13 +8,13 @@ use Webkul\DataTransfer\Helpers\Export as ExportHelper;
 use Webkul\DataTransfer\Helpers\Exporters\AbstractExporter;
 use Webkul\DataTransfer\Jobs\Export\File\FlatItemBuffer as FileExportFileBuffer;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
-use Webkul\Shopify\Exceptions\InvalidCredential;
-use Webkul\Shopify\Exceptions\InvalidLocale;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Repositories\ShopifyMappingRepository;
-use Webkul\Shopify\Traits\DataMappingTrait;
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
-use Webkul\Shopify\Traits\TranslationTrait;
+use Webkul\Prestashop\Exceptions\InvalidCredential;
+use Webkul\Prestashop\Exceptions\InvalidLocale;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Traits\DataMappingTrait;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\TranslationTrait;
 
 class Exporter extends AbstractExporter
 {

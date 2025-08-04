@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Helpers\Exporters\Product;
+namespace Webkul\Prestashop\Helpers\Exporters\Product;
 
 class ShopifyGraphQLDataFormatter
 {

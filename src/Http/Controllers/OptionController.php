@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Http\Controllers;
+namespace Webkul\Prestashop\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Webkul\Admin\Http\Controllers\Controller;
@@ -10,8 +10,8 @@ use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Core\Repositories\ChannelRepository;
 use Webkul\Core\Repositories\CurrencyRepository;
 use Webkul\Core\Repositories\LocaleRepository;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 
 class OptionController extends Controller
 {

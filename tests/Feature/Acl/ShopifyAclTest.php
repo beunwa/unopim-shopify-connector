@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Webkul\Shopify\Models\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Models\ShopifyCredentialsConfig;
 
 it('should not display the shopify credentials index if does not have permission', function () {
     $this->loginWithPermissions();

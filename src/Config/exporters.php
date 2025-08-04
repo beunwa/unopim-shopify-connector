@@ -3,7 +3,7 @@
 return [
     'shopifyProduct' => [
         'title'    => 'shopify::app.exporters.shopify.product',
-        'exporter' => 'Webkul\Shopify\Helpers\Exporters\Product\Exporter',
+        'exporter' => 'Webkul\Prestashop\Helpers\Exporters\Product\Exporter',
         'source'   => 'Webkul\Product\Repositories\ProductRepository',
         'filters'  => [
             'fields' => [
@@ -49,7 +49,7 @@ return [
 
     'shopifyCategories' => [
         'title'    => 'shopify::app.exporters.shopify.category',
-        'exporter' => 'Webkul\Shopify\Helpers\Exporters\Category\Exporter',
+        'exporter' => 'Webkul\Prestashop\Helpers\Exporters\Category\Exporter',
         'source'   => 'Webkul\Category\Repositories\CategoryRepository',
         'filters'  => [
             'fields' => [
@@ -70,8 +70,8 @@ return [
 
     'shopifyMetafield' => [
         'title'    => 'shopify::app.exporters.shopify.metafields',
-        'exporter' => 'Webkul\Shopify\Helpers\Exporters\MetaField\Exporter',
-        'source'   => 'Webkul\Shopify\Repositories\ShopifyMetaFieldRepository',
+        'exporter' => 'Webkul\Prestashop\Helpers\Exporters\MetaField\Exporter',
+        'source'   => 'Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository',
         'filters'  => [
             'fields' => [
                 [

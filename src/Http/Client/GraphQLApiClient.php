@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Http\Client;
+namespace Webkul\Prestashop\Http\Client;
 
 use Illuminate\Support\Facades\Http;
 

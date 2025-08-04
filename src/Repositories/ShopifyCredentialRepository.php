@@ -1,9 +1,9 @@
 <?php
 
-namespace Webkul\Shopify\Repositories;
+namespace Webkul\Prestashop\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Shopify\Contracts\ShopifyCredentialsConfig;
+use Webkul\Prestashop\Contracts\ShopifyCredentialsConfig;
 
 class ShopifyCredentialRepository extends Repository
 {

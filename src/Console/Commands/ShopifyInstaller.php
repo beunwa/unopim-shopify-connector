@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Console\Commands;
+namespace Webkul\Prestashop\Console\Commands;
 
 use Illuminate\Console\Command;
 
@@ -21,7 +21,7 @@ class ShopifyInstaller extends Command
 
         if ($this->confirm('Would you like to run the migrations now?', true)) {
             $this->call('migrate');
-            $this->call('db:seed', ['--class' => 'Webkul\Shopify\Database\Seeders\ShopifySettingConfigurationValuesSeeder']);
+            $this->call('db:seed', ['--class' => 'Webkul\Prestashop\Database\Seeders\ShopifySettingConfigurationValuesSeeder']);
         }
 
         $this->call('vendor:publish', [

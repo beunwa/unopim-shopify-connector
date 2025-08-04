@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Helpers\Importers\Metafield;
+namespace Webkul\Prestashop\Helpers\Importers\Metafield;
 
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Core\Repositories\LocaleRepository;
@@ -9,8 +9,8 @@ use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Helpers\Importers\Category\Storage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
 
 class Importer extends AbstractImporter
 {

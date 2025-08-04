@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Traits;
+namespace Webkul\Prestashop\Traits;
 
 /**
  * Trait for handling ValidatedBatched requests.

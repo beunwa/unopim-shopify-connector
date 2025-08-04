@@ -1,6 +1,6 @@
 <?php
 
-use Webkul\Shopify\Models\ShopifyMetaFieldsConfig;
+use Webkul\Prestashop\Models\ShopifyMetaFieldsConfig;
 
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;

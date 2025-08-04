@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Presenters;
+namespace Webkul\Prestashop\Presenters;
 
 use Webkul\HistoryControl\Presenters\JsonDataPresenter as JsonDataPresenters;
 

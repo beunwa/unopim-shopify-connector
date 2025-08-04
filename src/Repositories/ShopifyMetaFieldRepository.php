@@ -1,9 +1,9 @@
 <?php
 
-namespace Webkul\Shopify\Repositories;
+namespace Webkul\Prestashop\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Shopify\Contracts\ShopifyMetaFieldsConfig;
+use Webkul\Prestashop\Contracts\ShopifyMetaFieldsConfig;
 
 class ShopifyMetaFieldRepository extends Repository
 {

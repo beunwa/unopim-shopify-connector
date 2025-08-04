@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Console\Commands;
+namespace Webkul\Prestashop\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -8,10 +8,10 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Webkul\Shopify\Repositories\ShopifyExportMappingRepository;
-use Webkul\Shopify\Repositories\ShopifyMappingRepository;
-use Webkul\Shopify\Traits\DataMappingTrait;
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Traits\DataMappingTrait;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
 
 class ShopifyMappingProduct extends Command
 {

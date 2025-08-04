@@ -1,9 +1,9 @@
 <?php
 
-namespace Webkul\Shopify\Database\Factories;
+namespace Webkul\Prestashop\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Webkul\Shopify\Models\ShopifyMetaFieldsConfig;
+use Webkul\Prestashop\Models\ShopifyMetaFieldsConfig;
 
 class ShopifyMetaFieldFactory extends Factory
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Helpers\Importers\Product;
+namespace Webkul\Prestashop\Helpers\Importers\Product;
 
 use Illuminate\Support\Facades\Http;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
@@ -15,13 +15,13 @@ use Webkul\DataTransfer\Helpers\Importers\FieldProcessor;
 use Webkul\DataTransfer\Helpers\Importers\Product\SKUStorage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Product\Repositories\ProductRepository;
-use Webkul\Shopify\Helpers\ShoifyMetaFieldType;
-use Webkul\Shopify\Repositories\ShopifyCredentialRepository;
-use Webkul\Shopify\Repositories\ShopifyExportMappingRepository;
-use Webkul\Shopify\Repositories\ShopifyMappingRepository;
-use Webkul\Shopify\Traits\DataMappingTrait;
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
-use Webkul\Shopify\Traits\ValidatedBatched;
+use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
+use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
+use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
+use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
+use Webkul\Prestashop\Traits\DataMappingTrait;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\ValidatedBatched;
 
 class Importer extends AbstractImporter
 {
@@ -261,7 +261,7 @@ class Importer extends AbstractImporter
             'apiVersion'  => $this->credential?->apiVersion,
         ];
 
-        $products = new \Webkul\Shopify\Helpers\Iterator\ProductIterator($this->credentialArray);
+        $products = new \Webkul\Prestashop\Helpers\Iterator\ProductIterator($this->credentialArray);
 
         return $products;
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Webkul\Shopify\Helpers\Iterator;
+namespace Webkul\Prestashop\Helpers\Iterator;
 
-use Webkul\Shopify\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
 
 class ProductIterator implements \Iterator
 {

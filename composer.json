@@ -1,6 +1,6 @@
 {
-    "name": "unopim/shopify-connector",
-    "description": "A Shopify integration package for Unopim, enabling seamless product data synchronization between Unopim and Shopify.",
+    "name": "unopim/prestashop-connector",
+    "description": "A PrestaShop integration package for Unopim, enabling seamless product data synchronization between Unopim and PrestaShop.",
     "type": "library",
     "license": "MIT",    
     "authors": [
@@ -17,13 +17,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "Webkul\\Shopify\\": "src/"
+            "Webkul\\Prestashop\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Webkul\\Shopify\\Providers\\ShopifyServiceProvider"
+                "Webkul\\Prestashop\\Providers\\PrestashopServiceProvider"
             ],
             "aliases": {}
         }

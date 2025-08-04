@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Database\Seeders;
+namespace Webkul\Prestashop\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

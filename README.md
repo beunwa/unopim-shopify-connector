@@ -86,7 +86,7 @@ This ensures that the latest updates to the module are reflected in all backgrou
    Open the `tests/Pest.php` file and add this line:
 
    ```php
-   uses(Webkul\Shopify\Tests\ShopifyTestCase::class)->in('../vendor/unopim/shopify-connector/tests');
+   uses(Webkul\Prestashop\Tests\ShopifyTestCase::class)->in('../vendor/unopim/shopify-connector/tests');
    ```
 
 3. **Dump Composer Autoload for Tests**  
@@ -98,22 +98,22 @@ This ensures that the latest updates to the module are reflected in all backgrou
    To run tests for the Shopify package, use the following command:
 
    ```bash
-   ./vendor/bin/pest ./vendor/unopim/shopify-connector/tests
+   ./vendor/bin/pest ./vendor/unopim/prestashop-connector/tests
    ```
 ## Installation without composer
 
-Download and unzip the respective extension zip. Rename the folder to `Shopify` and move into the `packages/Webkul` directory of the project's root directory.
+Download and unzip the respective extension zip. Rename the folder to `Prestashop` and move into the `packages/Webkul` directory of the project's root directory.
 
 1. **Regsiter the package provider**
    In the `config/app.php` file add the below provider class under the `providers` key
 
    ```php
-      Webkul\Shopify\Providers\ShopifyServiceProvider::class,
+      Webkul\Prestashop\Providers\PrestashopServiceProvider::class,
    ``` 
 2. In the `composer.json` file register the test directory under the `autoload` `psr-4` section
 
    ```json
-   "Webkul\\Shopify\\": "packages/Webkul/Shopify/src"
+   "Webkul\\Prestashop\\": "packages/Webkul/Prestashop/src"
    ```
 3. **Run below given commands**
    
@@ -140,13 +140,13 @@ This ensures that the latest updates to the module are reflected in all backgrou
    Register test directory in `composer.json` under the `autoload-dev` `psr-4` section
 
    ```json
-   "Webkul\\Shopify\\Tests\\": "packages/Webkul/Shopify/tests"
+   "Webkul\\Prestashop\\Tests\\": "packages/Webkul/Prestashop/tests"
    ```
 2. **Configure TestCase**
    * Configure the testcase in `tests/Pest.php`. Add the following line:
 
    ```php
-   uses(Webkul\Shopify\Tests\ShopifyTestCase::class)->in('../packages/Webkul/Shopify/tests');
+   uses(Webkul\Prestashop\Tests\ShopifyTestCase::class)->in('../packages/Webkul/Prestashop/tests');
    ```
 3. **Dump Composer Autoload for Tests**  
    * Dump composer autolaod for tests directory
@@ -158,6 +158,6 @@ This ensures that the latest updates to the module are reflected in all backgrou
    * Run tests for only this package with the below command
 
    ```bash
-   ./vendor/bin/pest ./packages/Webkul/Shopify/tests/Feature
+   ./vendor/bin/pest ./packages/Webkul/Prestashop/tests/Feature
    ```
 ---

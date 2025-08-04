@@ -1,13 +1,13 @@
 <?php
 
-namespace Webkul\Shopify\Models;
+namespace Webkul\Prestashop\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Webkul\HistoryControl\Contracts\HistoryAuditable as HistoryContract;
 use Webkul\HistoryControl\Interfaces\PresentableHistoryInterface;
 use Webkul\HistoryControl\Traits\HistoryTrait;
-use Webkul\Shopify\Contracts\ShopifyExportMappingConfig as ShopifyExportMappingConfigContract;
-use Webkul\Shopify\Presenters\JsonDataPresenter;
+use Webkul\Prestashop\Contracts\ShopifyExportMappingConfig as ShopifyExportMappingConfigContract;
+use Webkul\Prestashop\Presenters\JsonDataPresenter;
 
 class ShopifyExportMappingConfig extends Model implements HistoryContract, PresentableHistoryInterface, ShopifyExportMappingConfigContract
 {

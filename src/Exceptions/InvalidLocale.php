@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkul\Shopify\Exceptions;
+namespace Webkul\Prestashop\Exceptions;
 
 use Exception;
 
