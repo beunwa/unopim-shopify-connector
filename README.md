@@ -58,7 +58,7 @@ composer require unopim/shopify-connector
 * Run the command to execute migrations and clear the cache.
 
 ```bash
-php artisan shopify-package:install;
+php artisan prestashop-package:install;
 php artisan optimize:clear;
 ```
 
@@ -119,7 +119,7 @@ Download and unzip the respective extension zip. Rename the folder to `Prestasho
    
    ```bash
    composer dump-autoload
-   php artisan shopify-package:install
+   php artisan prestashop-package:install
    php artisan optimize:clear
    ```
 
