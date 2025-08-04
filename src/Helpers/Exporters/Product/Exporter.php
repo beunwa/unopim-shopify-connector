@@ -1008,7 +1008,7 @@ class Exporter extends AbstractExporter
 
             $matchedAttr = array_intersect_key(
                 $this->exportMapping->mapping['shopify_connector_settings'] ?? [],
-                array_flip($this->translationShopifyFields)
+                array_flip($this->translationPrestashopFields)
             );
 
             $this->productTranslation(

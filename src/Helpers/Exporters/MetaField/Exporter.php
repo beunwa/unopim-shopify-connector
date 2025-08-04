@@ -10,7 +10,7 @@ use Webkul\DataTransfer\Jobs\Export\File\FlatItemBuffer as FileExportFileBuffer;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Exceptions\InvalidCredential;
 use Webkul\Prestashop\Exceptions\InvalidLocale;
-use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
+use Webkul\Prestashop\Helpers\PrestashopMetaFieldType;
 use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
 use Webkul\Prestashop\Repositories\PrestashopMetaFieldRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
@@ -49,7 +49,7 @@ class Exporter extends AbstractExporter
     /**
      * Shopify metafield type data.
      */
-    protected $shoifyMetaFieldTypeData;
+    protected $prestashopMetaFieldTypeData;
 
     protected bool $exportsFile = false;
 
@@ -60,7 +60,7 @@ class Exporter extends AbstractExporter
         protected JobTrackBatchRepository $exportBatchRepository,
         protected FileExportFileBuffer $exportFileBuffer,
         protected PrestashopCredentialRepository $prestashopRepository,
-        protected ShoifyMetaFieldType $shoifyMetaFieldType,
+        protected PrestashopMetaFieldType $prestashopMetaFieldType,
         protected PrestashopMetaFieldRepository $prestashopMetaFieldRepository
     ) {
         parent::__construct($exportBatchRepository, $exportFileBuffer);
@@ -84,7 +84,7 @@ class Exporter extends AbstractExporter
     protected function initCredential(): void
     {
         $filters = $this->getFilters();
-        $this->shoifyMetaFieldTypeData = $this->shoifyMetaFieldType->getMetaFieldTypeInShopify();
+        $this->prestashopMetaFieldTypeData = $this->prestashopMetaFieldType->getMetaFieldTypeInPrestashop();
         $this->credential = $this->prestashopRepository->find($filters['credentials']);
 
         if (! $this->credential?->active) {
@@ -323,7 +323,7 @@ class Exporter extends AbstractExporter
             $options = json_decode($rowData['options'], true);
             $capabilities = [];
             foreach ($options as $key => $option) {
-                if (isset($this->shoifyMetaFieldTypeData[$rowData['type']][$key])) {
+                if (isset($this->prestashopMetaFieldTypeData[$rowData['type']][$key])) {
                     $capabilities[$key] = [
                         'enabled' => (bool) $option,
                     ];

@@ -9,7 +9,7 @@ use Webkul\Prestashop\Contracts\PrestashopCredentialsConfig;
  */
 trait TranslationTrait
 {
-    protected $translationShopifyFields = [
+    protected $translationPrestashopFields = [
         'title',
         'descriptionHtml',
         'metafields_global_title_tag',
