@@ -2,40 +2,40 @@
 
 return [
     /**
-     * Shopify.
+     * Prestashop.
      */
     [
-        'key'   => 'shopify',
-        'name'  => 'shopify::app.components.layouts.sidebar.shopify',
-        'route' => 'shopify.credentials.index',
+        'key'   => 'prestashop',
+        'name'  => 'prestashop::app.components.layouts.sidebar.prestashop',
+        'route' => 'prestashop.credentials.index',
         'sort'  => 10,
-        'icon'  => 'icon-shopify',
+        'icon'  => 'icon-prestashop',
     ], [
-        'key'   => 'shopify.credentials',
-        'name'  => 'shopify::app.components.layouts.sidebar.credentials',
-        'route' => 'shopify.credentials.index',
+        'key'   => 'prestashop.credentials',
+        'name'  => 'prestashop::app.components.layouts.sidebar.credentials',
+        'route' => 'prestashop.credentials.index',
         'sort'  => 1,
     ], [
-        'key'    => 'shopify.export-mappings',
-        'name'   => 'shopify::app.components.layouts.sidebar.export-mappings',
-        'route'  => 'admin.shopify.export-mappings',
+        'key'    => 'prestashop.export-mappings',
+        'name'   => 'prestashop::app.components.layouts.sidebar.export-mappings',
+        'route'  => 'admin.prestashop.export-mappings',
         'params' => [1],
         'sort'   => 2,
     ], [
-        'key'    => 'shopify.import-mappings',
-        'name'   => 'shopify::app.components.layouts.sidebar.import-mappings',
-        'route'  => 'admin.shopify.import-mappings',
+        'key'    => 'prestashop.import-mappings',
+        'name'   => 'prestashop::app.components.layouts.sidebar.import-mappings',
+        'route'  => 'admin.prestashop.import-mappings',
         'params' => [3],
         'sort'   => 3,
     ], [
-        'key'    => 'shopify.meta-fields',
-        'name'   => 'shopify::app.components.layouts.sidebar.meta-fields',
-        'route'  => 'shopify.metafield.index',
+        'key'    => 'prestashop.meta-fields',
+        'name'   => 'prestashop::app.components.layouts.sidebar.meta-fields',
+        'route'  => 'prestashop.metafield.index',
         'sort'   => 4,
     ], [
-        'key'    => 'shopify.settings',
-        'name'   => 'shopify::app.components.layouts.sidebar.settings',
-        'route'  => 'admin.shopify.settings',
+        'key'    => 'prestashop.settings',
+        'name'   => 'prestashop::app.components.layouts.sidebar.settings',
+        'route'  => 'admin.prestashop.settings',
         'params' => [2],
         'sort'   => 5,
     ],
