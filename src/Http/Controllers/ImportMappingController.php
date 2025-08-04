@@ -5,7 +5,7 @@ namespace Webkul\Prestashop\Http\Controllers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Prestashop\Helpers\ShopifyFields;
+use Webkul\Prestashop\Helpers\PrestashopFields;
 use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
 use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 
@@ -26,7 +26,7 @@ class ImportMappingController extends Controller
      */
     public function index(): View
     {
-        $mappingFields = (new ShopifyFields)->getMappingField();
+        $mappingFields = (new PrestashopFields)->getMappingField();
         $shopifyMapping = $this->prestashopExportMappingRepository->find(3);
         $shopifyCredentials = $this->shopifyCredentialRepository->all()->toArray();
 

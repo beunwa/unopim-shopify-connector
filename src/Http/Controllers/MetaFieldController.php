@@ -7,7 +7,7 @@ use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Prestashop\DataGrids\Catalog\MetaFieldDataGrid;
-use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
+use Webkul\Prestashop\Helpers\PrestashopMetaFieldType;
 use Webkul\Prestashop\Http\Requests\MetaFieldForm;
 use Webkul\Prestashop\Repositories\PrestashopMetaFieldRepository;
 
@@ -67,9 +67,9 @@ class MetaFieldController extends Controller
             return app(MetaFieldDataGrid::class)->toJson();
         }
 
-        $object = (new ShoifyMetaFieldType);
+        $object = (new PrestashopMetaFieldType);
         $metaFieldType = $object->getMetaFieldType();
-        $metaFieldTypeInShopify = $object->getMetaFieldTypeInShopify();
+        $metaFieldTypeInShopify = $object->getMetaFieldTypeInPrestashop();
 
         return view('prestashop::metafield.index', compact('metaFieldType', 'metaFieldTypeInShopify'));
     }
@@ -270,9 +270,9 @@ class MetaFieldController extends Controller
             abort(404);
         }
 
-        $object = (new ShoifyMetaFieldType);
+        $object = (new PrestashopMetaFieldType);
         $metaFieldType = $object->getMetaFieldType();
-        $metaFieldTypeInShopify = $object->getMetaFieldTypeInShopify();
+        $metaFieldTypeInShopify = $object->getMetaFieldTypeInPrestashop();
 
         return view('prestashop::metafield.edit', compact('metaField', 'metaFieldType', 'metaFieldTypeInShopify'));
     }

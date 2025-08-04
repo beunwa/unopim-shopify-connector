@@ -5,8 +5,8 @@ namespace Webkul\Prestashop\Http\Controllers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
-use Webkul\Prestashop\Helpers\ShopifyFields;
+use Webkul\Prestashop\Helpers\PrestashopMetaFieldType;
+use Webkul\Prestashop\Helpers\PrestashopFields;
 use Webkul\Prestashop\Http\Requests\ExportMappingForm;
 use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 
@@ -26,11 +26,11 @@ class MappingController extends Controller
      */
     public function index(): View
     {
-        $mappingFields = (new ShopifyFields)->getMappingField();
+        $mappingFields = (new PrestashopFields)->getMappingField();
         $shopifyMapping = $this->prestashopExportMappingRepository->first();
 
-        $object = (new ShoifyMetaFieldType);
-        $metaFieldTypeInShopify = $object->getMetaFieldTypeInShopify();
+        $object = (new PrestashopMetaFieldType);
+        $metaFieldTypeInShopify = $object->getMetaFieldTypeInPrestashop();
         $attribute = [];
         $metafieldattrs = [];
 

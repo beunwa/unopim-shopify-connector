@@ -8,20 +8,20 @@ class CategoryIterator implements \Iterator
 {
     use PrestashopRequest;
 
-    private $cursor;                // Tracks the current cursor for pagination
+    private $page;                // Tracks the current page for pagination
 
     private $currentPageData;       // Holds data for the current page
 
     private $currentKey;            // Tracks the current index within the current page
 
-    private $credential;            // Credentials for Shopify API
+    private $credential;            // Credentials for PrestaShop API
 
     private $mergedOptions;
 
     public function __construct($credential)
     {
         $this->credential = $credential;
-        $this->cursor = null;       // Start with no cursor (first page)
+        $this->page = 1;       // Start from first page
         $this->currentPageData = [];
         $this->currentKey = 0;
         $this->fetchByCursor();
@@ -51,10 +51,10 @@ class CategoryIterator implements \Iterator
         if ($this->currentKey == 0) {
             return;
         }
-        $this->cursor = null;       // Reset to the first page
-        $this->currentPageData = [];
-        $this->currentKey = 0;
-        $this->fetchByCursor();     // Fetch the first page again
+          $this->page = 1;       // Reset to the first page
+          $this->currentPageData = [];
+          $this->currentKey = 0;
+          $this->fetchByCursor();     // Fetch the first page again
     }
 
     public function valid(): bool
@@ -62,39 +62,35 @@ class CategoryIterator implements \Iterator
         return ! empty($this->currentPageData);
     }
 
-    public function setCursor($cursor): void
-    {
-        $this->cursor = $cursor;
-        $this->fetchByCursor();     // Fetch data based on the provided cursor
-    }
+      public function setCursor($cursor): void
+      {
+          $this->page = $cursor;
+          $this->fetchByCursor();     // Fetch data based on the provided page
+      }
 
-    public function getCursor(): ?string
-    {
-        return $this->cursor;
-    }
+      public function getCursor(): ?int
+      {
+          return $this->page;
+      }
 
     private function fetchByCursor(): void
     {
         $this->currentPageData = [];
-        try {
-            $parameters = ['limit' => 10];
+          try {
+              $parameters = ['page' => $this->page, 'limit' => 10];
 
-            if ($this->cursor) {
-                $parameters['cursor'] = $this->cursor;
-            }
+              $response = $this->requestPrestashopApiAction('categories', $this->credential, $parameters);
 
-            $graphResponse = $this->requestPrestashopApiAction('categories', $this->credential, $parameters);
+              $categories = $response['body']['categories'] ?? [];
 
-            $edges = $graphResponse['body']['data']['collections']['edges'] ?? [];
+              $this->currentPageData = $categories;
+              // Update page
+              $this->page = ! empty($categories) ? $this->page + 1 : null;
 
-            $this->currentPageData = $edges;
-            // Update the cursor for the next page
-            $this->cursor = ! empty($edges) ? end($edges)['cursor'] : null;
+          } catch (\Exception $e) {
+              error_log($e->getMessage());
+          }
 
-        } catch (\Exception $e) {
-            error_log($e->getMessage());
-        }
-
-        $this->currentKey = 0;
-    }
+          $this->currentKey = 0;
+      }
 }

@@ -15,7 +15,7 @@ use Webkul\DataTransfer\Helpers\Importers\FieldProcessor;
 use Webkul\DataTransfer\Helpers\Importers\Product\SKUStorage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Product\Repositories\ProductRepository;
-use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
+use Webkul\Prestashop\Helpers\PrestashopMetaFieldType;
 use Webkul\Prestashop\Repositories\PrestashopCredentialRepository;
 use Webkul\Prestashop\Repositories\PrestashopExportMappingRepository;
 use Webkul\Prestashop\Repositories\PrestashopMappingRepository;
@@ -108,7 +108,7 @@ class Importer extends AbstractImporter
     /**
      * Shopify metafield type data.
      */
-    protected $shoifyMetaFieldTypeData;
+    protected $prestashopMetaFieldTypeData;
 
     /**
      * Valid csv columns
@@ -151,7 +151,7 @@ class Importer extends AbstractImporter
         protected FileStorer $fileStorer,
         protected CategoryRepository $categoryRepository,
         protected PrestashopMappingRepository $prestashopMappingRepository,
-        protected ShoifyMetaFieldType $shoifyMetaFieldType,
+        protected PrestashopMetaFieldType $prestashopMetaFieldType,
     ) {
         parent::__construct($importBatchRepository);
 
@@ -228,7 +228,7 @@ class Importer extends AbstractImporter
     {
         $filters = $this->import->jobInstance->filters;
 
-        $this->shoifyMetaFieldTypeData = $this->shoifyMetaFieldType->getMetaFieldTypeInShopify();
+        $this->prestashopMetaFieldTypeData = $this->prestashopMetaFieldType->getMetaFieldTypeInPrestashop();
 
         $this->credential = $this->prestashopRepository->find($filters['credentials'] ?? null);
         if (! $this->credential?->active) {
@@ -937,7 +937,7 @@ class Importer extends AbstractImporter
             if (! $attribute) {
                 continue;
             }
-            $unitOption = $this->shoifyMetaFieldTypeData[$metaData['node']['type']]['unitoptions'] ?? null;
+            $unitOption = $this->prestashopMetaFieldTypeData[$metaData['node']['type']]['unitoptions'] ?? null;
             if ($unitOption) {
                 $unitValue = json_decode($source, true);
                 $source = $unitValue['value'] ?? 0;
