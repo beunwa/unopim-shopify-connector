@@ -11,12 +11,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 
 class PrestashopMappingProduct extends Command
 {
     use DataMappingTrait;
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
 
     public const UNOPIM_ENTITY_NAME = 'product';
 
@@ -128,17 +128,13 @@ class PrestashopMappingProduct extends Command
 
     public function getProductsByPage($page, $onlyNew)
     {
-        $mutationType = 'productAllvalueGetting';
-        $variable = [];
+        $variable = ['limit' => 10];
+
         if ($page) {
-            $mutationType = 'productAllvalueGettingByCursor';
-            $variable = [
-                'first'       => 10,
-                'afterCursor' => $page,
-            ];
+            $variable['cursor'] = $page;
         }
 
-        $response = $this->requestGraphQlApiAction($mutationType, $this->credentialArray, $variable);
+        $response = $this->requestPrestashopApiAction('products', $this->credentialArray, $variable);
 
         $response = $response['body'];
         if (! isset($response['errors'])) {
@@ -156,9 +152,9 @@ class PrestashopMappingProduct extends Command
 
     public function getTotalProduct()
     {
-        $response = $this->requestGraphQlApiAction('getTotalProductCount', $this->credentialArray, []);
+        $response = $this->requestPrestashopApiAction('products/count', $this->credentialArray, []);
 
-        return $response['body']['data']['productsCount']['count'] ?? null;
+        return $response['body']['data']['count'] ?? null;
     }
 
     public function formateData($products, $onlyNew): void

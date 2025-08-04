@@ -13,13 +13,13 @@ use Webkul\Prestashop\Exceptions\InvalidLocale;
 use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
 use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\TranslationTrait;
 
 class Exporter extends AbstractExporter
 {
     use DataMappingTrait;
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
     use TranslationTrait;
 
     public const BATCH_SIZE = 10;
@@ -251,14 +251,14 @@ class Exporter extends AbstractExporter
         sort($existingIds);
         sort($newIds);
         if ($existingIds !== $newIds) {
-            $this->requestGraphQlApiAction(self::UPDATE_PUBLISH_CHANNEL, $this->credentialArray, [
+            $this->requestPrestashopApiAction(self::UPDATE_PUBLISH_CHANNEL, $this->credentialArray, [
                 'collectionId' => $collectionId,
                 'input'        => $publicationIds,
             ]);
 
             $removePublication = array_values(array_diff($existingIds, $newIds));
             if (! empty($removePublication)) {
-                $this->requestGraphQlApiAction(self::UPDATE_UNPUBLISH_CHANNEL, $this->credentialArray, [
+                $this->requestPrestashopApiAction(self::UPDATE_UNPUBLISH_CHANNEL, $this->credentialArray, [
                     'collectionId' => $collectionId,
                     'input'        => array_map(fn ($id) => ['publicationId' => $id], $removePublication),
                 ]);
@@ -303,7 +303,7 @@ class Exporter extends AbstractExporter
     {
         $mutationType = $id ? 'updateCollection' : 'createCollection';
 
-        $response = $this->requestGraphQlApiAction($mutationType, $this->credentialArray, ['input' => $category]);
+        $response = $this->requestPrestashopApiAction($mutationType, $this->credentialArray, ['input' => $category]);
 
         return $response;
     }

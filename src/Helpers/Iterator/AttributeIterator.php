@@ -2,11 +2,11 @@
 
 namespace Webkul\Prestashop\Helpers\Iterator;
 
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 
 class AttributeIterator implements \Iterator
 {
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
 
     private $cursor;
 
@@ -77,15 +77,13 @@ class AttributeIterator implements \Iterator
         $this->currentPageData = [];
         try {
             $variables = [];
+            $variables = ['limit' => 50];
+
             if ($this->cursor) {
-                $variables = [
-                    'first'       => 50,
-                    'afterCursor' => $this->cursor,
-                ];
+                $variables['cursor'] = $this->cursor;
             }
 
-            $mutationType = $this->cursor ? 'productOptionByCursor' : 'productGettingOptions';
-            $graphResponse = $this->requestGraphQlApiAction($mutationType, $this->credential, $variables);
+            $graphResponse = $this->requestPrestashopApiAction('attributes', $this->credential, $variables);
 
             $edges = $graphResponse['body']['data']['products']['edges'] ?? [];
             $this->currentPageData = $this->formatedAttributeAndOption($edges);

@@ -23,13 +23,13 @@ use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
 use Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\TranslationTrait;
 
 class Exporter extends AbstractExporter
 {
     use DataMappingTrait;
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
     use TranslationTrait;
 
     public const UNOPIM_ENTITY_NAME = 'product';
@@ -616,7 +616,7 @@ class Exporter extends AbstractExporter
                 'id'                  => $productId,
                 'productPublications' => $publicationsIds,
             ];
-            $this->requestGraphQlApiAction('productPublish', $credential, ['input' => $productPublishFormate]);
+            $this->requestPrestashopApiAction('productPublish', $credential, ['input' => $productPublishFormate]);
             $removePublication = array_values(array_diff($existingIds, $newIds));
             if (! empty($removePublication)) {
                 $removePublicationIds = array_map(fn ($id) => ['publicationId' => $id], $removePublication);
@@ -636,7 +636,7 @@ class Exporter extends AbstractExporter
             'productPublications' => $salesChannel,
         ];
 
-        $this->requestGraphQlApiAction('productUnpublish', $credential, ['input' => $productUnpublishFormate]);
+        $this->requestPrestashopApiAction('productUnpublish', $credential, ['input' => $productUnpublishFormate]);
     }
 
     /**
@@ -675,7 +675,7 @@ class Exporter extends AbstractExporter
                 $allimageAttr = $this->getAllImageMappingBySku('productImage', $productId, $mediaAttr, $galleryAttr);
                 $deleteIds = array_merge(array_column($allimageAttr, 'externalId'), $this->removeImgAttr);
                 if (! empty($deleteIds)) {
-                    $this->requestGraphQlApiAction('productDeleteMedia', $this->credentialAsArray, [
+                    $this->requestPrestashopApiAction('productDeleteMedia', $this->credentialAsArray, [
                         'mediaIds'  => $deleteIds,
                         'productId' => $productId,
                     ]);
@@ -731,7 +731,7 @@ class Exporter extends AbstractExporter
                     'variants'  => array_merge($variant['node'], $variantData),
                 ];
 
-                $defaultVariant = $this->requestGraphQlApiAction(self::VARIANT_UPDATE, $this->credentialAsArray, $variantDataFormatted);
+                $defaultVariant = $this->requestPrestashopApiAction(self::VARIANT_UPDATE, $this->credentialAsArray, $variantDataFormatted);
                 $productVariant = $defaultVariant['body']['data'][self::VARIANT_UPDATE] ?? [];
                 $inventoryToLocations = $productVariant['productVariants'][0]['inventoryItem']['inventoryLevels']['edges'] ?? [];
                 $inventoryItemId = $productVariant['productVariants'][0]['inventoryItem']['id'];
@@ -751,7 +751,7 @@ class Exporter extends AbstractExporter
                     'productId' => $productId,
                     'options'   => $filteredOptions,
                 ];
-                $optionResult = $this->requestGraphQlApiAction('createOptions', $this->credentialAsArray, $formateOptCreate);
+                $optionResult = $this->requestPrestashopApiAction('createOptions', $this->credentialAsArray, $formateOptCreate);
                 $productOption = $optionResult['body']['data']['productOptionsCreate']['product']['options'];
             }
 
@@ -1046,7 +1046,7 @@ class Exporter extends AbstractExporter
             'variants'  => [$variantData],
         ];
 
-        $result = $this->requestGraphQlApiAction(self::VARIANT_UPDATE, $this->credentialAsArray, $variantInput);
+        $result = $this->requestPrestashopApiAction(self::VARIANT_UPDATE, $this->credentialAsArray, $variantInput);
         $productVariant = $result['body']['data'][self::VARIANT_UPDATE] ?? [];
         $errors = array_column($productVariant['userErrors'] ?? [], 'message');
         if (in_array(self::NOT_EXIST_PRODUCT_VARIANT, $errors)) {
@@ -1111,7 +1111,7 @@ class Exporter extends AbstractExporter
             ],
         ];
 
-        $this->requestGraphQlApiAction('inventoryAdjustQuantities', $this->credentialAsArray, $input);
+        $this->requestPrestashopApiAction('inventoryAdjustQuantities', $this->credentialAsArray, $input);
     }
 
     /**
@@ -1134,7 +1134,7 @@ class Exporter extends AbstractExporter
                 unset($variableOption[$key]['optionValuesToUpdate']);
             }
 
-            $optionResult = $this->requestGraphQlApiAction('productOptionUpdated', $this->credentialAsArray, $variableOption[$key]);
+            $optionResult = $this->requestPrestashopApiAction('productOptionUpdated', $this->credentialAsArray, $variableOption[$key]);
             $optionsGetting = $optionResult['body']['data']['productOptionUpdate']['product']['options'];
 
             $this->productOptions[$parentData['sku']] = $optionsGetting;
@@ -1154,7 +1154,7 @@ class Exporter extends AbstractExporter
     ): void {
         if (! empty($this->updateMedia)) {
             $jsonData = ['input' => $this->updateMedia];
-            $fileUpdate = $this->requestGraphQlApiAction('productFileUpdate', $this->credentialAsArray, $jsonData);
+            $fileUpdate = $this->requestPrestashopApiAction('productFileUpdate', $this->credentialAsArray, $jsonData);
             $errors = $fileUpdate['body']['data']['fileUpdate']['userErrors'] ?? [];
             $errorCode = array_column($errors, 'code');
             if (in_array('FILE_DOES_NOT_EXIST', $errorCode)) {
@@ -1171,7 +1171,7 @@ class Exporter extends AbstractExporter
                 'productId' => $productId,
                 'media'     => $this->imageData,
             ];
-            $resultImage = $this->requestGraphQlApiAction('productCreateMedia', $this->credentialAsArray, $newImageAdded);
+            $resultImage = $this->requestPrestashopApiAction('productCreateMedia', $this->credentialAsArray, $newImageAdded);
             $mediasUpdate = $this->updateMedia = $resultImage['body']['data']['productCreateMedia']['media'];
 
             if (! empty($parentData) && ! empty($imageData[$parentData['sku']])) {
@@ -1243,7 +1243,7 @@ class Exporter extends AbstractExporter
             $finalVariant['strategy'] = 'REMOVE_STANDALONE_VARIANT';
         }
 
-        $result = $this->requestGraphQlApiAction('CreateProductVariants', $this->credentialAsArray, $finalVariant);
+        $result = $this->requestPrestashopApiAction('CreateProductVariants', $this->credentialAsArray, $finalVariant);
 
         return $result;
     }
@@ -1450,9 +1450,9 @@ class Exporter extends AbstractExporter
 
         if ($id) {
             $formattedGraphqlData['id'] = $id;
-            $response = $this->requestGraphQlApiAction('productUpdate', $credential, ['product' => $formattedGraphqlData]);
+            $response = $this->requestPrestashopApiAction('productUpdate', $credential, ['product' => $formattedGraphqlData]);
         } else {
-            $response = $this->requestGraphQlApiAction('createProduct', $credential, ['product' => $formattedGraphqlData, 'media' => $this->imageData]);
+            $response = $this->requestPrestashopApiAction('createProduct', $credential, ['product' => $formattedGraphqlData, 'media' => $this->imageData]);
         }
 
         return $response;
@@ -1464,7 +1464,7 @@ class Exporter extends AbstractExporter
      * */
     public function apiRequestShopifyDefaultVariantCreate(array $variantData, array $credential): ?array
     {
-        $response = $this->requestGraphQlApiAction('CreateProductVariantsDefault', $credential, $variantData);
+        $response = $this->requestPrestashopApiAction('CreateProductVariantsDefault', $credential, $variantData);
 
         return $response;
     }
@@ -1522,7 +1522,7 @@ class Exporter extends AbstractExporter
                 }
             }
 
-            $response = $this->requestGraphQlApiAction($endPoint, $credential, $variable, $productType);
+            $response = $this->requestPrestashopApiAction($endPoint, $credential, $variable);
 
             if (! isset($response['body']['data'][$productType]['metafields'])) {
                 return [];
@@ -1661,7 +1661,7 @@ class Exporter extends AbstractExporter
             'fileSize'  => (string) $asset['file_size'],
         ];
 
-        $videoResponse = $this->requestGraphQlApiAction('stagedUploadsCreate', $this->credentialAsArray, [
+        $videoResponse = $this->requestPrestashopApiAction('stagedUploadsCreate', $this->credentialAsArray, [
             'input' => $fileCreateForMp4,
         ]);
 

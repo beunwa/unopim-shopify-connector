@@ -14,13 +14,13 @@ use Webkul\Prestashop\Helpers\ShoifyMetaFieldType;
 use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
 use Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\TranslationTrait;
 
 class Exporter extends AbstractExporter
 {
     use DataMappingTrait;
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
     use TranslationTrait;
 
     public const BATCH_SIZE = 10;
@@ -222,7 +222,7 @@ class Exporter extends AbstractExporter
         if (! empty($userErrors)) {
             if ($userErrors[0]['code'] === 'TAKEN') {
                 $formattedData = $this->prepareMetaFieldDefinition($rawData, true);
-                $response = $this->requestGraphQlApiAction('metafieldDefinitionUpdate', $this->credentialArray, ['input' => $formattedData]);
+                $response = $this->requestPrestashopApiAction('metafieldDefinitionUpdate', $this->credentialArray, ['input' => $formattedData]);
                 $metaDataResponse = $response['body']['data']['metafieldDefinitionUpdate'] ?? [];
                 if (! empty($metaDataResponse['userErrors'])) {
                     $this->handleErrors($metaDataResponse['userErrors'], $rawData['code']);
@@ -343,7 +343,7 @@ class Exporter extends AbstractExporter
     {
         $mutationType = $id ? 'metafieldDefinitionUpdate' : 'metafieldDefinitionCreate';
 
-        $response = $this->requestGraphQlApiAction($mutationType, $this->credentialArray, ['input' => $metaFieldFormattedData]);
+        $response = $this->requestPrestashopApiAction($mutationType, $this->credentialArray, ['input' => $metaFieldFormattedData]);
 
         return $response;
     }

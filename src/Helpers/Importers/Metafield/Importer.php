@@ -10,11 +10,11 @@ use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Helpers\Importers\Category\Storage;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 
 class Importer extends AbstractImporter
 {
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
 
     public const BATCH_SIZE = 10;
 
@@ -132,13 +132,12 @@ class Importer extends AbstractImporter
         $allAttribute = [];
         $formattedOption = [];
         do {
-            $variables = [];
-            $mutationType = 'metafieldDefinitionsProductVariantType';
             $variables = [
-                'first'       => 20,
-                'after'       => $cursor,
+                'limit'  => 20,
+                'cursor' => $cursor,
             ];
-            $graphResponse = $this->requestGraphQlApiAction($mutationType, $this->credentialArray, $variables);
+
+            $graphResponse = $this->requestPrestashopApiAction('product-variant-metafields', $this->credentialArray, $variables);
 
             $metafieldAttribute = ! empty($graphResponse['body']['data']['metafieldDefinitions']['edges'])
                 ? $graphResponse['body']['data']['metafieldDefinitions']['edges']
@@ -169,13 +168,12 @@ class Importer extends AbstractImporter
         $allAttribute = [];
         $formattedOption = [];
         do {
-            $variables = [];
-            $mutationType = 'metafieldDefinitionsProductType';
             $variables = [
-                'first'       => 20,
-                'after'       => $cursor,
+                'limit'  => 20,
+                'cursor' => $cursor,
             ];
-            $graphResponse = $this->requestGraphQlApiAction($mutationType, $this->credentialArray, $variables);
+
+            $graphResponse = $this->requestPrestashopApiAction('product-metafields', $this->credentialArray, $variables);
 
             $metafieldAttribute = ! empty($graphResponse['body']['data']['metafieldDefinitions']['edges'])
                 ? $graphResponse['body']['data']['metafieldDefinitions']['edges']

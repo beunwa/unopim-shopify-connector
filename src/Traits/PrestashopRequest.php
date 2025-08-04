@@ -7,30 +7,26 @@ use Illuminate\Support\Facades\Storage as StorageFacade;
 use Webkul\DataTransfer\Helpers\Export as ExportHelper;
 use Webkul\DataTransfer\Models\JobTrack;
 use Webkul\Prestashop\Exceptions\InvalidCredential;
-use Webkul\Prestashop\Http\Client\GraphQLApiClient;
+use Webkul\Prestashop\Http\Client\PrestashopApiClient;
 
-/**
- * Trait for making GraphQL API requests to Shopify.
- */
-trait ShopifyGraphqlRequest
+trait PrestashopRequest
 {
-    /**
-     * Sends a GraphQL API request to Shopify based on the provided mutation type and credentials.
-     *
-     * @param  string  $mutationType  The GraphQL mutation type or query to execute.
-     * @param  array|null  $credential  Optional. Shopify credentials including 'shopUrl', 'accessToken', and 'apiVersion'.
-     * @param  array|null  $formatedVariable  Optional. Variables to be sent with the GraphQL query or mutation.
-     * @return array The response from Shopify's GraphQL API.
-     */
-    protected function requestGraphQlApiAction(string $mutationType, ?array $credential = [], ?array $formatedVariable = []): array
-    {
-        if (! $credential || ! isset($credential['shopUrl'], $credential['accessToken'], $credential['apiVersion'])) {
-            throw new \InvalidArgumentException('Invalid Shopify credentials provided.');
+    protected function requestPrestashopApiAction(
+        string $endpoint,
+        ?array $credential = [],
+        ?array $parameters = [],
+        string $method = 'GET',
+        ?array $payload = []
+    ): array {
+        if (! $credential || ! isset($credential['shopUrl']) || ! (isset($credential['apiKey']) || isset($credential['accessToken']))) {
+            throw new \InvalidArgumentException('Invalid Prestashop credentials provided.');
         }
 
-        $credential = new GraphQLApiClient($credential['shopUrl'], $credential['accessToken'], $credential['apiVersion']);
+        $apiKey = $credential['apiKey'] ?? $credential['accessToken'];
 
-        $response = $credential->request($mutationType, $formatedVariable);
+        $client = new PrestashopApiClient($credential['shopUrl'], $apiKey);
+
+        $response = $client->request($endpoint, $parameters ?? [], $payload ?? [], $method);
 
         if (
             (! $response['code'] || in_array($response['code'], [401, 404]))
@@ -47,12 +43,8 @@ trait ShopifyGraphqlRequest
         return $response;
     }
 
-    /**
-     * Attempts to download the image from the provided URL.
-     */
     public function handleUrlField(mixed $imageUrl, string $imagePath): string|bool
     {
-
         try {
             $response = Http::get($imageUrl);
 

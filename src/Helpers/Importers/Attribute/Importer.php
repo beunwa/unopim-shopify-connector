@@ -9,12 +9,12 @@ use Webkul\DataTransfer\Helpers\Import;
 use Webkul\DataTransfer\Helpers\Importers\AbstractImporter;
 use Webkul\DataTransfer\Repositories\JobTrackBatchRepository;
 use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\ValidatedBatched;
 
 class Importer extends AbstractImporter
 {
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
     use ValidatedBatched;
 
     public const BATCH_SIZE = 10;

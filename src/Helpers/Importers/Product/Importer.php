@@ -20,13 +20,13 @@ use Webkul\Prestashop\Repositories\ShopifyCredentialRepository;
 use Webkul\Prestashop\Repositories\ShopifyExportMappingRepository;
 use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
-use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
+use Webkul\Prestashop\Traits\PrestashopRequest;
 use Webkul\Prestashop\Traits\ValidatedBatched;
 
 class Importer extends AbstractImporter
 {
     use DataMappingTrait;
-    use ShopifyGraphqlRequest;
+    use PrestashopRequest;
     use ValidatedBatched;
 
     public const BATCH_SIZE = 50;
@@ -308,7 +308,7 @@ class Importer extends AbstractImporter
                     'apiVersion'  => $this->credential?->apiVersion,
                 ];
 
-                $data = $this->requestGraphQlApiAction('gettingRemaingVariant', $this->credentialArray, $variables);
+                $data = $this->requestPrestashopApiAction('gettingRemaingVariant', $this->credentialArray, $variables);
                 $remainData = $data['body']['data']['product']['variants']['edges'];
                 $variants = array_merge($variants, $remainData);
             }
