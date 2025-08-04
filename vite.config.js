@@ -21,9 +21,9 @@ export default defineConfig(({ mode }) => {
 
         plugins: [
             laravel({
-                hotFile: "../../../public/shopify-vite.hot",
+                hotFile: "../../../public/prestashop-vite.hot",
                 publicDirectory: "../../../public",
-                buildDirectory: "themes/shopify/build",
+                buildDirectory: "themes/prestashop/build",
                 input: [
                     "src/Resources/assets/css/app.css",
                 ],

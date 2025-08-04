@@ -1,0 +1,11 @@
+{
+  "src/Resources/assets/css/app.css": {
+    "file": "assets/app-04d3f7b3.css",
+    "isEntry": true,
+    "src": "src/Resources/assets/css/app.css"
+  },
+  "src/Resources/assets/fonts/prestashop.woff": {
+    "file": "assets/prestashop-2844f63b.woff",
+    "src": "src/Resources/assets/fonts/prestashop.woff"
+  }
+}

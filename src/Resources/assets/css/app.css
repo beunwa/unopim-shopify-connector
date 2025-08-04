@@ -1,14 +1,14 @@
 @font-face {
-    font-family: "unopim-shopify";
-    src: url("../fonts/shopify.woff?jwnnow") format("woff");
+    font-family: "unopim-prestashop";
+    src: url("../fonts/prestashop.woff?jwnnow") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: block;
 }
 
-.icon-shopify {
-    font-family: "unopim-shopify" !important;
+.icon-prestashop {
+    font-family: "unopim-prestashop" !important;
 }
-.icon-shopify:before {
+.icon-prestashop:before {
     content: "\e900";
 }
