@@ -1,49 +1,50 @@
-# UnoPim Shopify Connector
+# UnoPim PrestaShop 8 Connector
 
-Effortlessly integrate your Shopify store with UnoPim for seamless product data management and synchronization. You can currently export catalogs, including categories and both simple and variant products, from UnoPim to Shopify.
+Effortlessly integrate your PrestaShop 8 store with UnoPim for seamless product data management and synchronization. You can export catalogs, including categories and both simple and variant products, from UnoPim to PrestaShop.
 
-## Requiremenets:
-* **Unopim**: v0.2
+## Requirements
+* **UnoPim**: v0.2 or later
+* **PrestaShop**: v8.x
   
 ## ✨ Features
 
-- **Sync Multiple Stores**  
-  This feature exports products from UnoPim to Shopify and allows syncing multiple Shopify stores.
+- **Sync Multiple Stores**
+  This feature exports products from UnoPim to PrestaShop and allows syncing multiple PrestaShop stores.
 
   ![Sync Multiple Stores Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Sync%20Multiple%20Stores.png)
 
-- **Export Attribute Mapping**  
-  With this module, you can map attributes to export the attribute from UnoPim to Shopify.
+- **Export Attribute Mapping**
+  With this module, you can map attributes to export the attribute from UnoPim to PrestaShop.
 
   ![Export Attribute Mapping Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Export%20Attribute%20Mapping.png)
  
-- **Locale Mapping**  
-  This feature allows you to map all UnoPim published locale to corresponding Shopify locale.
+- **Locale Mapping**
+  This feature allows you to map all UnoPim published locale to the corresponding PrestaShop locale.
 
   ![Locale Mapping Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Locale%20Mapping.png)
 
-- **Metafields Mapping**  
-  You can map Meta fields like strings, integers, and JSON strings to easily export product details from UnoPim to Shopify.
+- **Metafields Mapping**
+  You can map Meta fields like strings, integers, and JSON strings to easily export product details from UnoPim to PrestaShop.
 
   ![Metafields Mapping Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Metafields%20Mapping.png)
 
-- **Tags, MetaFields, and Other Settings**  
-  This module provides additional settings for exporting products data from UnoPim to Shopify.
+- **Tags, MetaFields, and Other Settings**
+  This module provides additional settings for exporting product data from UnoPim to PrestaShop.
 
   ![Tags, MetaFields, and Other Settings Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Tags%2C%20MetaFields%2C%20and%20Other%20Settings.png)
 
-- **Filter Data From Export**  
+- **Filter Data From Export**
   Channel, Currency, and Product (SKU) are among the data that may be filtered with this module.
 
   ![Filter Data From Export Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Filter%20Data%20From%20Export.png)
 
-- **Export Product**  
-  This module allows you to export products from UnoPim to Shopify along with associated data, such as an attribute, image, and all.
+- **Export Product**
+  This module allows you to export products from UnoPim to PrestaShop along with associated data, such as attributes, images, and more.
 
   ![Export Product Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Export%20Product.png)
 
-- **Export Category**  
-  This module allows you to export the category to Shopify from Unopim.
+- **Export Category**
+  This module allows you to export categories from UnoPim to PrestaShop.
 
   ![Export Category Interface](https://raw.githubusercontent.com/unopim/temp-media/refs/heads/main/Shopify-Connector/Export%20Category.png)
 
@@ -52,7 +53,7 @@ Effortlessly integrate your Shopify store with UnoPim for seamless product data 
 
 - Run the following command
 ```
-composer require unopim/shopify-connector
+composer require unopim/prestashop-connector
 ```
 
 * Run the command to execute migrations and clear the cache.
@@ -61,6 +62,18 @@ composer require unopim/shopify-connector
 php artisan prestashop-package:install;
 php artisan optimize:clear;
 ```
+
+### Environment variables
+
+Configure the connection to your PrestaShop 8 instance by adding the following variables to your `.env` file:
+
+```env
+PRESTASHOP_URL="https://your-prestashop-store.test"
+PRESTASHOP_API_KEY="your-api-key"
+PRESTASHOP_DEFAULT_LANGUAGE="en"
+```
+
+These values are used by the package to communicate with the PrestaShop webservice.
 
 ## **Enable Queue Operations**  
    - Start the queue to execute actions, such as job operations, by running the following command:
@@ -79,14 +92,14 @@ This ensures that the latest updates to the module are reflected in all backgrou
 1. **Register Test Directory**  
    In the `composer.json` file, register the test directory under the `autoload-dev` `psr-4` section:
    ```json
-   "Webkul\\Shopify\\Tests\\": "vendor/unopim/shopify-connector/tests/"
+  "Webkul\\Prestashop\\Tests\\": "vendor/unopim/prestashop-connector/tests/"
    ```
 
 2. **Configure TestCase**  
    Open the `tests/Pest.php` file and add this line:
 
    ```php
-   uses(Webkul\Prestashop\Tests\PrestashopTestCase::class)->in('../vendor/unopim/shopify-connector/tests');
+   uses(Webkul\Prestashop\Tests\PrestashopTestCase::class)->in('../vendor/unopim/prestashop-connector/tests');
    ```
 
 3. **Dump Composer Autoload for Tests**  
@@ -94,8 +107,8 @@ This ensures that the latest updates to the module are reflected in all backgrou
    composer dump-autoload
    ```
 
-4. **Run Tests**  
-   To run tests for the Shopify package, use the following command:
+4. **Run Tests**
+   To run tests for the PrestaShop package, use the following command:
 
    ```bash
    ./vendor/bin/pest ./vendor/unopim/prestashop-connector/tests
