@@ -1,45 +1,45 @@
 <?php
 
 return [
-    'shopifyProduct' => [
-        'title'    => 'shopify::app.exporters.shopify.product',
+    'prestashopProduct' => [
+        'title'    => 'prestashop::app.exporters.prestashop.product',
         'exporter' => 'Webkul\Prestashop\Helpers\Exporters\Product\Exporter',
         'source'   => 'Webkul\Product\Repositories\ProductRepository',
         'filters'  => [
             'fields' => [
                 [
                     'name'       => 'credentials',
-                    'title'      => 'shopify::app.shopify.job.credentials',
+                    'title'      => 'prestashop::app.prestashop.job.credentials',
                     'required'   => true,
                     'validation' => 'required',
                     'type'       => 'select',
                     'async'      => true,
                     'track_by'   => 'id',
                     'label_by'   => 'label',
-                    'list_route' => 'shopify.credential.fetch-all',
+                    'list_route' => 'prestashop.credential.fetch-all',
                 ], [
                     'name'       => 'channel',
-                    'title'      => 'shopify::app.shopify.job.channel',
+                    'title'      => 'prestashop::app.prestashop.job.channel',
                     'required'   => true,
                     'validation' => 'required',
                     'type'       => 'select',
                     'async'      => true,
                     'track_by'   => 'id',
                     'label_by'   => 'label',
-                    'list_route' => 'shopify.channel.fetch-all',
+                    'list_route' => 'prestashop.channel.fetch-all',
                 ], [
                     'name'       => 'currency',
-                    'title'      => 'shopify::app.shopify.job.currency',
+                    'title'      => 'prestashop::app.prestashop.job.currency',
                     'required'   => true,
                     'type'       => 'select',
                     'validation' => 'required',
                     'async'      => true,
                     'track_by'   => 'id',
                     'label_by'   => 'label',
-                    'list_route' => 'shopify.currency.fetch-all',
+                    'list_route' => 'prestashop.currency.fetch-all',
                 ], [
                     'name'     => 'productfilter',
-                    'title'    => 'shopify::app.shopify.job.productfilter',
+                    'title'    => 'prestashop::app.prestashop.job.productfilter',
                     'required' => false,
                     'type'     => 'textarea',
                 ],
@@ -47,43 +47,43 @@ return [
         ],
     ],
 
-    'shopifyCategories' => [
-        'title'    => 'shopify::app.exporters.shopify.category',
+    'prestashopCategories' => [
+        'title'    => 'prestashop::app.exporters.prestashop.category',
         'exporter' => 'Webkul\Prestashop\Helpers\Exporters\Category\Exporter',
         'source'   => 'Webkul\Category\Repositories\CategoryRepository',
         'filters'  => [
             'fields' => [
                 [
                     'name'       => 'credentials',
-                    'title'      => 'shopify::app.shopify.job.credentials',
+                    'title'      => 'prestashop::app.prestashop.job.credentials',
                     'required'   => true,
                     'validation' => 'required',
                     'type'       => 'select',
                     'async'      => true,
                     'track_by'   => 'id',
                     'label_by'   => 'label',
-                    'list_route' => 'shopify.credential.fetch-all',
+                    'list_route' => 'prestashop.credential.fetch-all',
                 ],
             ],
         ],
     ],
 
-    'shopifyMetafield' => [
-        'title'    => 'shopify::app.exporters.shopify.metafields',
+    'prestashopMetafield' => [
+        'title'    => 'prestashop::app.exporters.prestashop.metafields',
         'exporter' => 'Webkul\Prestashop\Helpers\Exporters\MetaField\Exporter',
         'source'   => 'Webkul\Prestashop\Repositories\ShopifyMetaFieldRepository',
         'filters'  => [
             'fields' => [
                 [
                     'name'       => 'credentials',
-                    'title'      => 'Shopify credentials',
+                    'title'      => 'Prestashop credentials',
                     'required'   => true,
                     'validation' => 'required',
                     'type'       => 'select',
                     'async'      => true,
                     'track_by'   => 'id',
                     'label_by'   => 'label',
-                    'list_route' => 'shopify.credential.fetch-all',
+                    'list_route' => 'prestashop.credential.fetch-all',
                 ],
             ],
         ],
