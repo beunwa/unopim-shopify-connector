@@ -5,7 +5,7 @@ use Webkul\Attribute\Models\Attribute;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
-it('should show the shopify import-mappings page', function () {
+it('should show the prestashop import-mappings page', function () {
     $this->loginAsAdmin();
 
     get(route('admin.prestashop.import-mappings', 3))

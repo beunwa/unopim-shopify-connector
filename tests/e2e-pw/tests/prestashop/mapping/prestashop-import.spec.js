@@ -22,18 +22,18 @@ const mappingElements = [
     { field: 'Cost per item [cost]', inputName: 'cost', placeholder: 'Cost per item' }
 ];
 
-test.describe('UnoPim Shopify import mapping tab Navigation', () => {
+test.describe('UnoPim PrestaShop import mapping tab Navigation', () => {
     test.beforeEach(async ({ page }) => {
-        // Navigate to the Shopify Credentials Page
-        await page.goto('admin/shopify/credentials');
+        // Navigate to the PrestaShop Credentials Page
+        await page.goto('admin/prestashop/credentials');
         await page.getByRole('link', { name: 'Import Mappings' }).click();
-        await expect(page.url()).toMatch(/\/admin\/shopify\/import\/mapping\/[0-9]+$/);
+        await expect(page.url()).toMatch(/\/admin\/prestashop\/import\/mapping\/[0-9]+$/);
     });
 
     // Playwright test to map fields
 
 
-    test('Map Shopify Fields', async ({ page }) => {
+    test('Map PrestaShop Fields', async ({ page }) => {
 
         for (const element of mappingElements) {
             console.log(`Mapping ${element.field}`);
@@ -52,7 +52,7 @@ test.describe('UnoPim Shopify import mapping tab Navigation', () => {
 
     });
 
-    test('should navigate to Shopify Import mapping page and fill import mapping form', async ({ page }) => {
+    test('should navigate to PrestaShop Import mapping page and fill import mapping form', async ({ page }) => {
         await expect(page.getByRole('link', { name: 'General' })).toBeVisible();
         await expect(page.locator('#app')).toContainText('General');
         await expect(page.getByRole('paragraph').filter({ hasText: 'Import Mappings' })).toBeVisible();

@@ -90,12 +90,12 @@ it('should return a list of image attributes', function () {
     );
 });
 
-it('should return the list of active Shopify credentials', function () {
+it('should return the list of active Prestashop credentials', function () {
     $this->loginAsAdmin();
 
-    $activeCredential1 = PrestashopCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop1.myshopify.com']);
-    $activeCredential2 = PrestashopCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop2.myshopify.com']);
-    $inactiveCredential = PrestashopCredentialsConfig::factory()->create(['active' => 0, 'shopUrl' => 'shop3.myshopify.com']);
+    $activeCredential1 = PrestashopCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop1.prestashop.com']);
+    $activeCredential2 = PrestashopCredentialsConfig::factory()->create(['active' => 1, 'shopUrl' => 'shop2.prestashop.com']);
+    $inactiveCredential = PrestashopCredentialsConfig::factory()->create(['active' => 0, 'shopUrl' => 'shop3.prestashop.com']);
 
     $response = get(route('prestashop.credential.fetch-all'));
 
@@ -111,7 +111,7 @@ it('should return the list of active Shopify credentials', function () {
     ]);
 });
 
-it('should return an empty list when no active Shopify credentials exist', function () {
+it('should return an empty list when no active Prestashop credentials exist', function () {
     $this->loginAsAdmin();
 
     $existingCredentials = PrestashopCredentialsConfig::where('active', 1)->get();

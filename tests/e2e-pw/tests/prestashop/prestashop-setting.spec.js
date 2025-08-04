@@ -4,14 +4,14 @@ test.use({ storageState: 'storage/auth.json' }); // Reuse login session
 // test.use({ launchOptions: { slowMo: 1000 } }); // Slow down actions by 1 second
 
 
-test.describe('UnoPim Shopify setting tab Navigation', () => {
+test.describe('UnoPim PrestaShop setting tab Navigation', () => {
     test.beforeEach(async ({ page }) => {
-        // Navigate to the Shopify Credentials Page
-        await page.goto('admin/shopify/credentials');
+        // Navigate to the PrestaShop Credentials Page
+        await page.goto('admin/prestashop/credentials');
         await page.getByRole('link', { name: 'Settings', exact: true }).click()
     });
     test('Verify page loads correctly', async ({ page }) => {
-        await expect(page).toHaveURL('http://localhost:8000/admin/shopify/export/settings/2');
+        await expect(page).toHaveURL('http://localhost:8000/admin/prestashop/export/settings/2');
     });
 
     test('Toggle Named Tags Export setting', async ({ page }) => {

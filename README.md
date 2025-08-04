@@ -86,7 +86,7 @@ This ensures that the latest updates to the module are reflected in all backgrou
    Open the `tests/Pest.php` file and add this line:
 
    ```php
-   uses(Webkul\Prestashop\Tests\ShopifyTestCase::class)->in('../vendor/unopim/shopify-connector/tests');
+   uses(Webkul\Prestashop\Tests\PrestashopTestCase::class)->in('../vendor/unopim/shopify-connector/tests');
    ```
 
 3. **Dump Composer Autoload for Tests**  
@@ -146,7 +146,7 @@ This ensures that the latest updates to the module are reflected in all backgrou
    * Configure the testcase in `tests/Pest.php`. Add the following line:
 
    ```php
-   uses(Webkul\Prestashop\Tests\ShopifyTestCase::class)->in('../packages/Webkul/Prestashop/tests');
+   uses(Webkul\Prestashop\Tests\PrestashopTestCase::class)->in('../packages/Webkul/Prestashop/tests');
    ```
 3. **Dump Composer Autoload for Tests**  
    * Dump composer autolaod for tests directory
