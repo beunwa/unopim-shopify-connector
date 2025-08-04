@@ -4,20 +4,20 @@ namespace Webkul\Prestashop\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class ShopifyInstaller extends Command
+class PrestashopInstaller extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'shopify-package:install';
+    protected $signature = 'prestashop-package:install';
 
-    protected $description = 'Install the Shopify package';
+    protected $description = 'Install the Prestashop package';
 
     public function handle()
     {
-        $this->info('Installing Unopim Shopify connector...');
+        $this->info('Installing Unopim Prestashop connector...');
 
         if ($this->confirm('Would you like to run the migrations now?', true)) {
             $this->call('migrate');
@@ -25,9 +25,9 @@ class ShopifyInstaller extends Command
         }
 
         $this->call('vendor:publish', [
-            '--tag' => 'shopify-config',
+            '--tag' => 'prestashop-config',
         ]);
 
-        $this->info('Unopim Shopify connector installed successfully!');
+        $this->info('Unopim Prestashop connector installed successfully!');
     }
 }

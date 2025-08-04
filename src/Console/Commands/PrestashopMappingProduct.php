@@ -13,7 +13,7 @@ use Webkul\Prestashop\Repositories\ShopifyMappingRepository;
 use Webkul\Prestashop\Traits\DataMappingTrait;
 use Webkul\Prestashop\Traits\ShopifyGraphqlRequest;
 
-class ShopifyMappingProduct extends Command
+class PrestashopMappingProduct extends Command
 {
     use DataMappingTrait;
     use ShopifyGraphqlRequest;
@@ -25,7 +25,7 @@ class ShopifyMappingProduct extends Command
      *
      * @var string
      */
-    protected $signature = 'shopify-mapping:products {shopUrl} {--onlynew=false}';
+    protected $signature = 'prestashop-mapping:products {shopUrl} {--onlynew=false}';
 
     protected $description = 'Mapping products';
 
@@ -118,7 +118,7 @@ class ShopifyMappingProduct extends Command
         }
         if (! empty($this->duplicateSku)) {
             $value = implode(',', $this->duplicateSku);
-            $io->warning('Duplicate Sku found in shopify:- '.$value);
+            $io->warning('Duplicate Sku found in Prestashop:- '.$value);
         }
         $this->progressBar->finish();
         $io->success('Mapping DONE!!!');

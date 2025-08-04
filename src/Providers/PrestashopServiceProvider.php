@@ -6,8 +6,8 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Webkul\Prestashop\Console\Commands\ShopifyInstaller;
-use Webkul\Prestashop\Console\Commands\ShopifyMappingProduct;
+use Webkul\Prestashop\Console\Commands\PrestashopInstaller;
+use Webkul\Prestashop\Console\Commands\PrestashopMappingProduct;
 use Webkul\Theme\ViewRenderEventManager;
 
 class PrestashopServiceProvider extends ServiceProvider
@@ -19,28 +19,28 @@ class PrestashopServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        Route::middleware('web')->group(__DIR__.'/../Routes/shopify-routes.php');
+        Route::middleware('web')->group(__DIR__.'/../Routes/prestashop-routes.php');
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migration');
-        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'shopify');
-        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'shopify');
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'prestashop');
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'prestashop');
 
         $this->app->register(ModuleServiceProvider::class);
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                ShopifyInstaller::class,
-                ShopifyMappingProduct::class,
+                PrestashopInstaller::class,
+                PrestashopMappingProduct::class,
             ]);
         }
 
         Event::listen('unopim.admin.layout.head', static function (ViewRenderEventManager $viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('shopify::style');
+            $viewRenderEventManager->addTemplate('prestashop::style');
         });
 
         $this->publishes([
             __DIR__.'/../../publishable' => public_path('themes'),
-        ], 'shopify-config');
+        ], 'prestashop-config');
     }
 
     /**

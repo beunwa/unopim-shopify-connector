@@ -25,7 +25,7 @@ composer install
 ```bash
 composer require unopim/shopify-connector
 composer dump-autoload
-php artisan shopify-package:install
+php artisan prestashop-package:install
 php artisan optimize:clear
 ```
 
@@ -68,7 +68,7 @@ A GitHub Actions YAML file is provided to automate the end-to-end testing proces
 
 ```bash
 composer dump-autoload
-php artisan shopify-package:install
+php artisan prestashop-package:install
 php artisan optimize:clear
 ```
 

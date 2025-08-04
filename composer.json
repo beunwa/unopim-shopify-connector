@@ -31,7 +31,7 @@
     "scripts": {
         "post-autoload-dump": [
             "@php artisan vendor:publish --tag=config --force",
-            "@php artisan shopify-package:install"
+            "@php artisan prestashop-package:install"
         ]
     },
     "minimum-stability": "dev"    
