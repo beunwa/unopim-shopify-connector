@@ -57,7 +57,7 @@ class MappingController extends Controller
             $mediaMapping[$row] = $value;
         }
 
-        return view('shopify::export.mapping.index', compact('mappingFields', 'formattedShopifyMapping', 'shopifyDefaultMapping', 'formattedOtherMapping', 'shopifyMapping', 'mediaMapping', 'metaFieldTypeInShopify'));
+        return view('prestashop::export.mapping.index', compact('mappingFields', 'formattedShopifyMapping', 'shopifyDefaultMapping', 'formattedOtherMapping', 'shopifyMapping', 'mediaMapping', 'metaFieldTypeInShopify'));
     }
 
     /**
@@ -99,7 +99,7 @@ class MappingController extends Controller
 
         session()->flash('success', trans('shopify::app.shopify.export.mapping.created'));
 
-        return redirect()->route('admin.shopify.export-mappings', 1);
+        return redirect()->route('admin.prestashop.export-mappings', 1);
     }
 
     public function formatMediaMapping(array &$filteredData, array &$mappingFields)

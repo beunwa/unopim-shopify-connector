@@ -45,7 +45,7 @@ class ImportMappingController extends Controller
             $mediaMapping[$row] = $value;
         }
 
-        return view('shopify::import.mapping.index', compact('mappingFields', 'formattedShopifyMapping', 'shopifyMapping', 'shopifyCredentials', 'mediaMapping'));
+        return view('prestashop::import.mapping.index', compact('mappingFields', 'formattedShopifyMapping', 'shopifyMapping', 'shopifyCredentials', 'mediaMapping'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ImportMappingController extends Controller
 
             $keysAsArray = array_fill_keys($duplicateKeys, 'Duplicate attribute mapping');
 
-            return redirect()->route('admin.shopify.import-mappings', 3)
+            return redirect()->route('admin.prestashop.import-mappings', 3)
                 ->withErrors($keysAsArray)
                 ->withInput();
         }
@@ -87,7 +87,7 @@ class ImportMappingController extends Controller
 
         session()->flash('success', trans('shopify::app.shopify.import.mapping.created'));
 
-        return redirect()->route('admin.shopify.import-mappings', 3);
+        return redirect()->route('admin.prestashop.import-mappings', 3);
     }
 
     public function formatMediaMapping(array &$filteredData, array &$mappingFields)

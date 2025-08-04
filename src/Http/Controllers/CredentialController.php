@@ -35,7 +35,7 @@ class CredentialController extends Controller
 
         $apiVersion = (new ShoifyApiVersion)->getApiVersion();
 
-        return view('shopify::credential.index', compact('apiVersion'));
+        return view('prestashop::credential.index', compact('apiVersion'));
     }
 
     /**
@@ -91,7 +91,7 @@ class CredentialController extends Controller
         }
 
         return new JsonResponse([
-            'redirect_url' => route('shopify.credentials.edit', $credentialCreate->id),
+            'redirect_url' => route('prestashop.credentials.edit', $credentialCreate->id),
         ]);
     }
 
@@ -138,7 +138,7 @@ class CredentialController extends Controller
 
         $credential->accessToken = str_repeat('*', strlen($credential->accessToken));
 
-        return view('shopify::credential.edit', compact('credential', 'shopLocales', 'publishingChannel', 'locationAll', 'apiVersion'));
+        return view('prestashop::credential.edit', compact('credential', 'shopLocales', 'publishingChannel', 'locationAll', 'apiVersion'));
     }
 
     /**
@@ -169,7 +169,7 @@ class CredentialController extends Controller
         $response = $this->requestPrestashopApiAction('products', $requestData);
 
         if ($response['code'] != 200) {
-            return redirect()->route('shopify.credentials.edit', $id)
+            return redirect()->route('prestashop.credentials.edit', $id)
                 ->withErrors([
                     'shopUrl'     => trans('shopify::app.shopify.credential.invalid'),
                     'accessToken' => trans('shopify::app.shopify.credential.invalid'),
@@ -210,6 +210,6 @@ class CredentialController extends Controller
 
         session()->flash('success', trans('shopify::app.shopify.credential.update-success'));
 
-        return redirect()->route('shopify.credentials.edit', $id);
+        return redirect()->route('prestashop.credentials.edit', $id);
     }
 }
